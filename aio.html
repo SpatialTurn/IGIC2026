@@ -237,7 +237,19 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="introduction.html">1. Using Markdown</a>
+        <a href="prelunch.html">1. Jupyter Notebook</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="postlunch.html">2. Using Markdown</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -300,11 +312,132 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>All in One View</h1>
         
-<section id="aio-introduction"><p>Content from <a href="introduction.html">Using Markdown</a></p>
+<section id="aio-prelunch"><p>Content from <a href="prelunch.html">Jupyter Notebook</a></p>
 <hr>
-<p>Last updated on 2025-07-11 |
+<p>Last updated on 2026-05-03 |
 
-        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/introduction.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/prelunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<section><h2 class="section-heading" id="what-is-a-python-notebook">1. What Is a Python Notebook?<a class="anchor" aria-label="anchor" href="#what-is-a-python-notebook"></a>
+</h2>
+<hr class="half-width">
+<p>A <strong>Notebook</strong> is an interactive computing environment
+that allows you to combine:</p>
+<ul>
+<li>Code (Python)</li>
+<li>Text explanations</li>
+<li>Mathematical equations</li>
+<li>Tables and visualizations</li>
+<li>Results and outputs</li>
+</ul>
+<p>All in a single document!</p>
+<p>Jupyter Notebooks are especially useful for:</p>
+<ul>
+<li>Data exploration, cleaning, &amp; analysis<br>
+</li>
+<li>Teaching and learning Python<br>
+</li>
+<li>Prototyping models<br>
+</li>
+<li>Sharing reproducible research</li>
+</ul>
+<p>Instead of writing a script and running it all at once, you work in
+<strong>small, executable blocks called cells</strong>. An example of
+this would be using the <strong>Notebook</strong> feature in ArcGIS Pro
+Desktop.</p>
+<hr></section><section><h2 class="section-heading" id="why-data-scientists-use-python-notebooks">2. Why Data Scientists Use Python Notebooks ?<a class="anchor" aria-label="anchor" href="#why-data-scientists-use-python-notebooks"></a>
+</h2>
+<hr class="half-width">
+<p>Python Notebooks support an <strong>iterative workflow</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Write a few lines of code<br>
+</li>
+<li>Run them immediately<br>
+</li>
+<li>Inspect the output<br>
+</li>
+<li>Modify and rerun as needed</li>
+<li>Move on to next step and repeat!</li>
+</ol>
+<div class="section level3">
+<h3 id="key-advantages">Key Advantages<a class="anchor" aria-label="anchor" href="#key-advantages"></a>
+</h3>
+<ul>
+<li>Immediate visualization of data<br>
+</li>
+<li>Easy experimentation<br>
+</li>
+<li>Built-in documentation using Markdown<br>
+</li>
+<li>Reproducible analysis<br>
+</li>
+<li>Simple sharing with collaborators</li>
+</ul>
+<hr>
+</div>
+</section><section><h2 class="section-heading" id="getting-started-opening-a-notebook">3. Getting Started: Opening a Notebook<a class="anchor" aria-label="anchor" href="#getting-started-opening-a-notebook"></a>
+</h2>
+<hr class="half-width">
+<p>You can use Jupyter Notebooks in several ways, one such way is:</p>
+<ul>
+<li>
+<a href="https://colab.research.google.com" class="external-link">Google Collab</a>. You
+would need a google account for this. Then create a new notebook in
+Drive.</li>
+</ul>
+<div class="section level3">
+<h3 id="quick-start-in-google-colab-easiest-for-beginners">Quick Start in Google Colab (easiest for beginners)<a class="anchor" aria-label="anchor" href="#quick-start-in-google-colab-easiest-for-beginners"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Go to <a href="https://colab.research.google.com" class="external-link uri">https://colab.research.google.com</a>
+</li>
+<li>Click <strong>File → New notebook</strong>
+</li>
+<li>You’re ready! No installation needed.</li>
+</ol>
+<figure><img src="colabintro.png" title="Google Colab" alt="Opening a New Notebook in Colab." class="figure mx-auto d-block"><div class="figcaption">Opening a New Notebook in Colab.</div>
+</figure><div class="section level4">
+<h4 id="why-run-this-online">Why Run this online ?<a class="anchor" aria-label="anchor" href="#why-run-this-online"></a>
+</h4>
+<ul>
+<li>Ease of Usage and Free</li>
+<li>Colab runs in the cloud → you only need a Google account and
+internet</li>
+<li>
+<strong>Most</strong> Python packages/libraries are
+pre-installed!</li>
+</ul>
+<p><strong>Note</strong>: To SAVE your changes made, make sure to Save a
+copy of the notebook in your Drive!</p>
+<figure><img src="savecopy.png" title="Your Notebook" alt="Saving your own Copy of the Demo Notebook." class="figure mx-auto d-block"><div class="figcaption">Saving your own Copy of the Demo Notebook.</div>
+</figure><hr>
+</div>
+<div class="Activity">
+<div class="section level4">
+<h4 id="option-1-want-to-learn-the-basics-of-python-go-through-cells-1-12-">Option 1: Want to Learn the Basics of Python ? Go through cells
+<em>1-12</em>.<a class="anchor" aria-label="anchor" href="#option-1-want-to-learn-the-basics-of-python-go-through-cells-1-12-"></a>
+</h4>
+</div>
+<div class="section level4">
+<h4 id="option-2-already-know-the-basics-scroll-down-to-cell-13-">Option 2: Already know the basics ? Scroll down to cell
+<em>13</em>.<a class="anchor" aria-label="anchor" href="#option-2-already-know-the-basics-scroll-down-to-cell-13-"></a>
+</h4>
+<p>Check out this Notebook <a href="">Here</a> to get you started with
+the usage of Python in Colab and its Libraries.</p>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
+</section></section><section id="aio-postlunch"><p>Content from <a href="postlunch.html">Using Markdown</a></p>
+<hr>
+<p>Last updated on 2026-05-03 |
+
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/postlunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <div class="text-end">
           <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
         </div>
@@ -521,9 +654,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/aio.html",
-  "dateCreated": "2026-04-30",
-  "dateModified": "2026-04-30",
-  "datePublished": "2026-04-30"
+  "dateCreated": "2026-05-03",
+  "dateModified": "2026-05-03",
+  "datePublished": "2026-05-03"
 }
 
   </script><script>
