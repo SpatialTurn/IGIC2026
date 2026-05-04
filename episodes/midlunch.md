@@ -24,7 +24,7 @@ exercises: 120 # exercise time in minutes
 
 ## Introduction to Census Data
 
-The U.S. Census Bureau provides three broad categories of datasets:
+#### The U.S. Census Bureau provides three broad categories of datasets:
 
 1. Census TIGER/Line Shapefiles
 2. Decennial Census of Population and Housing
@@ -33,10 +33,17 @@ The U.S. Census Bureau provides three broad categories of datasets:
 ### Census TIGER/Line Shapefiles
 
 TIGER (Topologically Integrated Geographic Encoding and Referencing) is the Census Bureau's primary geospatial data product. TIGER/Line shapefiles are available from 2007 to the present; earlier data is available in ASCII format.
-These shapefiles include all legal boundaries and names for geographic units across the United States — states, counties, places, ZIP codes, urban areas, census blocks, block groups, and census tracts. Each record includes a standard GEOID that links directly to Census demographic data.
+
+These shapefiles include all legal boundaries and names for geographic units across the United States — *states, counties, places, ZIP codes, urban areas, census blocks, block groups, and census tracts*.
+ 
+Each record includes a standard `GEOID` that links directly to Census demographic data.
+
+
+![U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions](censusmapusa.jpg "Census USA Map")
+
+
 TIGER/Line Shapefiles use American National Standards Institute (ANSI) codes to identify geographic entities, including both FIPS (Federal Information Processing Series) and GNIS (U.S. Geological Survey Geographic Names Information System) codes. For example, the field `STATEFP` contains the state FIPS code, and `STATENS` contains the state GNIS code. County-level FIPS codes are five digits: the first two identify the state, and the last three identify the county.
 
-![Census USA Map](official_census.png "A map showing U.S. Census Bureau TIGER/Line shapefile boundaries for states and counties.")
 
 ### Decennial Census of Population and Housing
 
@@ -94,7 +101,7 @@ The ACS is an annual survey that collects information from a sample of the popul
 
 Before mapping or analyzing Census data, you need to obtain it. The Census Bureau provides several access methods:
 
-- Manual downloads from [Here](data.census.gov).
+- Manual downloads from [data.census.gov](https://data.census.gov/).
 - Bulk file downloads
 - Programmatic access via the Census API
 
@@ -170,11 +177,13 @@ For tract-level data, use the `state > county > tract` pattern. Here is an examp
 https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:18&in=county:*&key=YOUR_KEY_GOES_HERE
 ```
 
-**Key points:**
+::::::::::::::::::::::::::::::::::::: keypoints
+
 - `tract:*` returns all tracts in the specified state
 - `county:*` returns all counties in the specified state
 - Replace `state:18` with your state's FIPS code ([State Codes List](https://www.census.gov/library/reference/code-lists/ansi.html#state))
 - `state:*` is **not** allowed for tract-level queries due to dataset size limits — you must specify a state
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ---
 
@@ -203,7 +212,9 @@ https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:
 ### Step 4 — Optional Enhancements
  
 - **View variable descriptions:** Add `&descriptive=true` to your URL
-- **Download as CSV:** Add `&outputFormat=csv` for a spreadsheet-friendly file
+- **Download as CSV:** Add `&outputFormat=csv` for a spreadsheet
+-friendly file
+
 ::::::::::::::::::::::::::::::::::::: callout
  
 **Heads up:** API variable names are **case-sensitive** — they must match exactly as listed in the variables page.
@@ -220,7 +231,7 @@ https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:
 https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&for=tract:*&in=state:18&in=county:*&descriptive=true&outputFormat=csv
 ```
  
-This returns the number of occupied households **without a vehicle** for every census tract in Indiana.
+#### This returns the number of occupied households **without a vehicle** for every census tract in Indiana.
  
 ::::::::::::::::::::::::::::::::::::: keypoints
  
