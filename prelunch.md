@@ -48,75 +48,45 @@ Python Notebooks support an **iterative workflow**:
 ![Average Temperatures and Snow Depth (mm) in Midwest since 2008.](exampleplot.png "A multivariate choropleth plot")
 
 ### The code I used.
+
 ```python
-cLon, cLat, lonW, lonE, latS, latN = -92.5, 42.5, -105.0, -80.0, 35.0, 50.0
-proj_data = ccrs.PlateCarree()  
+cLon, cLat, lonW, lonE, latS, latN = -92.5, 42.5, -105.0, -80.0, 35.0, 50.0 # coordinate extension
+proj_data = ccrs.PlateCarree() # setting projection  
 proj_map = ccrs.Mercator()
         
-res = '10m'
+res = '10m' # resolution
 
-fig = plt.figure(figsize=(18,9))
+fig = plt.figure(figsize=(18,9)) # figure parameters
 ax = plt.subplot(1,1,1,projection=proj_map)
 
-totalsum = sum(snow[:51])
+totalsum = sum(snow[:51]) # finding snow average 
 average = totalsum/51 * 1000
 
-totalsum1 = sum([totaltemp[y][0] for y in range(51)])
-average1 = (totalsum1/51 - 273.15) * 1.8 + 32
+totalsum1 = sum([totaltemp[y][0] for y in range(51)]) # total temperature
+average1 = (totalsum1/51 - 273.15) * 1.8 + 32 # temperature conversion
 
-bounds = np.concatenate((np.arange(0,52,2), np.arange(50,850,100)))
+bounds = np.concatenate((np.arange(0,52,2), np.arange(50,850,100))) # joining arrays
 cmap = mpl.cm.nipy_spectral_r
 norm = mpl.colors.BoundaryNorm(bounds, cmap.N, extend='both')
 
-Mesh = ax.pcolormesh(lonstotal, latstotal, average, cmap=cmap, norm=norm, transform=proj_data, alpha=0.6)
+Mesh = ax.pcolormesh(lonstotal, latstotal, average, cmap=cmap, norm=norm, transform=proj_data, alpha=0.6) # choosing color norm
 plt.colorbar(Mesh, shrink=.5, extend='both', label='mm')
 
-CL = ax.contour(lontotal,lattotal,average1,levels=np.arange(7,56,1),colors='black', linewidths=0.5, transform=proj_data)
+CL = ax.contour(lontotal,lattotal,average1,levels=np.arange(7,56,1),colors='black', linewidths=0.5, transform=proj_data) # contour temps
 plt.clabel(CL,inline=True,fontsize=15)
     
 ax.set_extent([lonW, lonE, latS, latN], crs=proj_data)
 ax.add_feature(cfeature.COASTLINE.with_scale(res), edgecolor='black', alpha=0.3)
 ax.add_feature(cfeature.STATES.with_scale(res), edgecolor='black', alpha=1)
 
-state_names = ['Illinois', 'Indiana', 'Iowa', 'Kansas', 'Michigan', 'Minnesota', 'Missouri', 'Nebraska', 'North Dakota', 'Ohio', 'South Dakota', 'Wisconsin']
+state_names = ['Illinois', 'Indiana', 'Iowa', 'Kansas', 'Michigan', 'Minnesota', 'Missouri', 'Nebraska', 'North Dakota', 'Ohio', 'South Dakota', 'Wisconsin'] # state names
 state_coords = {
-    'Illinois': (-89.0, 41.0),
-    'Indiana': (-86.2, 40.0),
-    'Iowa': (-93.5, 42.0),
-    'Kansas': (-98.0, 38.5),
-    'Michigan': (-84.5, 42.5),
-    'Minnesota': (-94.7, 47.0),
-    'Missouri': (-92.5, 38.5),
-    'Nebraska': (-102.0, 42.0),
-    'North Dakota': (-100.5, 47.0),
-    'Ohio': (-82.5, 40.5),
-    'South Dakota': (-100.0, 44.5),
-    'Wisconsin': (-90.0, 44.5)
-}
 
-for state, coord in state_coords.items():
-    ax.text(coord[0], coord[1], state,
-            fontsize=14,
-            ha='center',
-            va='center',
-            transform=proj_data,
-            bbox=dict(facecolor='white', alpha=0.5, boxstyle='round,pad=0.3'))
-
-gridlines = ax.gridlines(draw_labels=True, crs=proj_data)
-gridlines.right_labels = False
-gridlines.top_labels = False
-gridlines.xlabel_style = {'size': 14, 'color': 'black'}
-gridlines.ylabel_style = {'size': 14, 'color': 'black'}
-
-ax.set_xlabel('Longitude', fontsize=16, labelpad=20)
-ax.set_ylabel('Latitude', fontsize=16, labelpad=20)
-plt.title('950 hPa Average Temperature (F, contour) & Snow Depth (mm, color fill) since 2008',size=16)
-
-plt.show()
+......... # a lot more lines of code! 
 ```
-Those are a lot of lines of code! **Do not PANIC!** We will not be doing this today, thankfully. 
+#### Those are a lot of lines of code! **Do not PANIC!** We will not be doing this today, thankfully. 
 
-#### The idea of this Session is to introduce you to Python and the basics of using Python followed by its Libraries to visualize, analyze, and interpret data.   
+##### The idea of this Session is to introduce you to Python and the basics of using Python followed by its Libraries to visualize, analyze, and interpret data.   
 
 ---
 
