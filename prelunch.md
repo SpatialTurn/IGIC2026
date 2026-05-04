@@ -110,7 +110,7 @@ You can use Jupyter Notebooks in several ways, one such way is:
 - Colab runs in the cloud → you only need a Google account and internet 
 - **Most** Python packages/libraries are pre-installed! 
 
-### **Tip:** Display the code line numbers in the notebook. `Tools` → `Settings`→ `Editor` → `Check Show Line Numbers` → `Save`
+#### **Tip:** Display the code line numbers in the notebook. `Tools` → `Settings`→ `Editor` → `Check Show Line Numbers` → `Save`
 
 --- 
 
