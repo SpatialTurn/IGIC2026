@@ -351,6 +351,18 @@ groups</li>
 models, and more</li>
 </ul>
 <ul>
+<li>
+<code>tract:*</code> returns all tracts in the specified state</li>
+<li>
+<code>county:*</code> returns all counties in the specified
+state</li>
+<li>Replace <code>state:18</code> with your state’s FIPS code (<a href="https://www.census.gov/library/reference/code-lists/ansi.html#state" class="external-link">State
+Codes List</a>)</li>
+<li>
+<code>state:*</code> is <strong>not</strong> allowed for tract-level
+queries due to dataset size limits — you must specify a state</li>
+</ul>
+<ul>
 <li>The Census API gives you flexible, precise access to ACS data</li>
 <li>You can combine multiple variables in a single API call</li>
 <li>
