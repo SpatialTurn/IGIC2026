@@ -316,7 +316,7 @@
         
 <section id="aio-prelunch"><p>Content from <a href="prelunch.html">Jupyter Notebook</a></p>
 <hr>
-<p>Last updated on 2026-05-03 |
+<p>Last updated on 2026-05-04 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/prelunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -412,29 +412,62 @@ internet</li>
 <strong>Most</strong> Python packages/libraries are
 pre-installed!</li>
 </ul>
+<hr>
+<div id="get-started-with-the-notebook" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="get-started-with-the-notebook" class="callout-inner">
+<h3 class="callout-title">Get Started with the Notebook</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook linked below, which
+covers everything on this page hands-on inside Google Colab.</p>
+<p><strong>New to Python?</strong> Start at cell 1 and work through cell
+12 to build up the fundamentals — variables, lists, loops, and
+functions.</p>
+<p><strong>Already comfortable with the basics?</strong> Jump straight
+to cell 13 to explore NumPy, pandas, Matplotlib, and GeoPandas in
+action.</p>
+<p><a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/intro_python.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a></p>
+</div>
+</div>
+</div>
 <p><strong>Note</strong>: To SAVE your changes made, make sure to Save a
 copy of the notebook in your Drive!</p>
-<figure><img src="../savecopy.png" title="Your Notebook" alt="Saving your own Copy of the Demo Notebook." class="figure mx-auto d-block"><div class="figcaption">Saving your own Copy of the Demo Notebook.</div>
-</figure><hr>
-</div>
-<div class="Activity">
-<div class="section level4">
-<h4 id="option-1-want-to-learn-the-basics-of-python-go-through-cells-1-12-">Option 1: Want to Learn the Basics of Python ? Go through cells
-<em>1-12</em>.<a class="anchor" aria-label="anchor" href="#option-1-want-to-learn-the-basics-of-python-go-through-cells-1-12-"></a>
-</h4>
-</div>
-<div class="section level4">
-<h4 id="option-2-already-know-the-basics-scroll-down-to-cell-13-">Option 2: Already know the basics ? Scroll down to cell
-<em>13</em>.<a class="anchor" aria-label="anchor" href="#option-2-already-know-the-basics-scroll-down-to-cell-13-"></a>
-</h4>
-<p>Check out this Notebook <a href="">Here</a> to get you started with
-the usage of Python in Colab and its Libraries.</p>
+<figure><img src="../savecopy.png" title="Your Notebook" class="figure mx-auto d-block"></figure>
 </div>
 </div>
-<!--
+</section><section><h2 class="section-heading" id="what-is-a-python-library">4. What is a Python Library?<a class="anchor" aria-label="anchor" href="#what-is-a-python-library"></a>
+</h2>
+<hr class="half-width">
+<p>A Python library is a collection of pre-written code that you can
+bring into your own project to save time. Instead of writing everything
+from scratch, you import a library and immediately gain access to
+powerful tools that others have already built and tested.</p>
+<p>You import a library using the <code>import</code> keyword:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre>
+</div>
+<p>The <code>as</code> keyword gives the library a shorter nickname —
+these aliases (<code>pd</code>, <code>np</code>, <code>plt</code>) are
+standard conventions you will see everywhere in data science code.</p>
+<div class="section level3">
+<h3 id="why-libraries-matter">Why Libraries Matter ?<a class="anchor" aria-label="anchor" href="#why-libraries-matter"></a>
+</h3>
+<p>Python on its own is a general-purpose language. Its real strength in
+data science comes from its ecosystem of libraries. A task that might
+take hundreds of lines of custom code — such as reading a CSV, computing
+statistics, and drawing a chart — can be done in fewer than ten lines
+when you use the right libraries. <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- -->
+ --></p>
 </div>
 </section></section><section id="aio-postlunch"><p>Content from <a href="postlunch.html">Using Markdown</a></p>
 <hr>
@@ -500,7 +533,7 @@ reinforce the objectives.</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Inline instructor notes can help inform instructors of timing
 challenges associated with the lessons. They appear in the “Instructor
@@ -532,7 +565,7 @@ View”</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -561,7 +594,7 @@ challenge blocks?</h3>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can add a line with at least three colons and a
 <code>solution</code> tag.</p>
@@ -672,9 +705,9 @@ any links that you are not going to use.
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/aio.html",
-  "dateCreated": "2026-05-03",
-  "dateModified": "2026-05-03",
-  "datePublished": "2026-05-03"
+  "dateCreated": "2026-05-04",
+  "dateModified": "2026-05-04",
+  "datePublished": "2026-05-04"
 }
 
   </script><script>
