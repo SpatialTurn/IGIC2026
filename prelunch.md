@@ -67,20 +67,41 @@ You can use Jupyter Notebooks in several ways, one such way is:
 - Colab runs in the cloud → you only need a Google account and internet 
 - **Most** Python packages/libraries are pre-installed! 
 
-**Note**: To SAVE your changes made, make sure to Save a copy of the notebook in your Drive! 
-
-![Saving your own Copy of the Demo Notebook.](savecopy.png "Your Notebook")
-
 ---
 
-:::::::::::::::::::::::::::::::::::::: Activity
+:::::::::::::::::::::::::::::::::::::::::: challenge
 
-#### Option 1: Want to Learn the Basics of Python ? Go through cells *1-12*.
+##### Get Started with the Notebook
 
-#### Option 2: Already know the basics ? Scroll down to cell *13*.
+Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab.
 
-Check out this Notebook [Here]() to get you started with the usage of Python in Colab and its Libraries. 
+**New to Python?** Start at cell 1 and work through cell 12 to build up the fundamentals — variables, lists, loops, and functions.
 
-::::::::::::::::::::::::::::::::::::::::::::::::
+**Already comfortable with the basics?** Jump straight to cell 13 to explore NumPy, pandas, Matplotlib, and GeoPandas in action.
+
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/intro_python.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+**Note**: To SAVE your changes made, make sure to Save a copy of the notebook in your Drive! 
+
+![](savecopy.png "Your Notebook")
+
+
+## 4. What is a Python Library?
+
+A Python library is a collection of pre-written code that you can bring into your own project to save time. Instead of writing everything from scratch, you import a library and immediately gain access to powerful tools that others have already built and tested.
+
+You import a library using the `import` keyword:
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
+The `as` keyword gives the library a shorter nickname — these aliases (`pd`, `np`, `plt`) are standard conventions you will see everywhere in data science code.
+
+### Why Libraries Matter ?
+
+Python on its own is a general-purpose language. Its real strength in data science comes from its ecosystem of libraries. A task that might take hundreds of lines of custom code — such as reading a CSV, computing statistics, and drawing a chart — can be done in fewer than ten lines when you use the right libraries.
