@@ -219,6 +219,16 @@ The key difference from a regular DataFrame is a `geometry` column that stores s
 
 **Best for:** mapping, spatial joins, working with shapefiles and GeoJSON, choropleth maps.
 
+
+### A Quick Reference Guide
+
+| Library                              | Alias                  | Primary Use                   |
+|--------------------------------------|---------------------------------------------|---------------------------------------------|
+| NumPy             | `np`          | Arrays, math, linear algebra          |
+| pandas          | `pd`               | Tables, CSVs, data cleaning          |
+| Matplotlib    | `plt`      | Charts and plots           |
+| GeoPandas        | `gpd`              | Maps and geographic data           |
+
 :::::::::::::::::::::::::::::::::::::::::: keypoints
 
 - A Python library is a collection of pre-written code you import to extend Python's capabilities.
