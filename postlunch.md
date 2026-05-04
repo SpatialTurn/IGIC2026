@@ -1,7 +1,7 @@
 ---
-title: "Using Markdown"
-teaching: 10 # teaching time in minutes
-exercises: 2 # exercise time in minutes
+title: "Census Data Analysis with Python Notebook"
+teaching: 120 # teaching time in minutes
+exercises: 120 # exercise time in minutes
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
