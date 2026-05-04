@@ -25,6 +25,8 @@ Jupyter Notebooks are especially useful for:
 
 Instead of writing a script and running it all at once, you work in **small, executable blocks called cells**. An example of this would be using the **Notebook** feature in ArcGIS Pro Desktop. 
 
+![*Image Source: Markdown in a Jupyter notebook, Edlitera.*](notebookexample.png "Python Notebook Layout")
+
 ## 2. Why Data Scientists Use Python Notebooks ?
 
 Python Notebooks support an **iterative workflow**:
@@ -86,8 +88,6 @@ state_coords = {
 ```
 #### Those are a lot of lines of code! **Do not PANIC!** We will not be doing this today, thankfully. 
 
-##### The idea of this Session is to introduce you to Python and the basics of using Python followed by its Libraries to visualize, analyze, and interpret data.   
-
 ---
 
 ## 3. Getting Started: Opening a Notebook
@@ -110,7 +110,9 @@ You can use Jupyter Notebooks in several ways, one such way is:
 - Colab runs in the cloud → you only need a Google account and internet 
 - **Most** Python packages/libraries are pre-installed! 
 
----
+### **Tip:** Display the code line numbers in the notebook. `Tools` → `Settings`→ `Editor` → `Check Show Line Numbers` → `Save`
+
+--- 
 
 :::::::::::::::::::::::::::::::::::::::::: challenge
 
@@ -118,7 +120,7 @@ You can use Jupyter Notebooks in several ways, one such way is:
 
 Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab.
 
-**New to Python?** Start at cell 1 and work through cell 12 to build up the fundamentals — variables, lists, loops, and functions.
+**New to Python?** Start at cell `1.` and work through cell `12.` to build up the fundamentals such as variables, lists, loops, and functions.
 
 Scroll down to find additional reading on python libraries and most commonly used libraries in Data Science.
 
