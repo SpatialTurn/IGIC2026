@@ -249,7 +249,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="midlunch.html">2. Acquiring and Exploration of Census Data</a>
+        <a href="midlunch.html">2. Acquiring and Exploring Census Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -688,7 +688,7 @@ Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
 </div>
-</section></section><section id="aio-midlunch"><p>Content from <a href="midlunch.html">Acquiring and Exploration of Census Data</a></p>
+</section></section><section id="aio-midlunch"><p>Content from <a href="midlunch.html">Acquiring and Exploring Census Data</a></p>
 <hr>
 <p>Last updated on 2026-05-04 |
 
@@ -704,8 +704,12 @@ any links that you are not going to use.
 <div class="inner">
 <h3 class="card-title">Questions</h3>
 <ul>
-<li>How do you write a lesson using Markdown and
-<a href="https://carpentries.github.io/sandpaper/" class="external-link">sandpaper</a>?</li>
+<li>What kinds of datasets are available from the U.S. Census
+Bureau?</li>
+<li>How can you visualize and analyze these datasets for your region of
+interest?</li>
+<li>How do you combine spatial and tabular Census data?</li>
+<li>What variables are available in the ACS dataset?</li>
 </ul>
 </div>
 </div>
@@ -715,9 +719,12 @@ any links that you are not going to use.
 <div class="inner bordered">
 <h3 class="card-title">Objectives</h3>
 <ul>
-<li>Explain how to use markdown with The Carpentries Workbench</li>
-<li>Demonstrate how to include pieces of code, figures, and nested
-challenge blocks</li>
+<li>Provide an overview of data available from the U.S. Census
+Bureau</li>
+<li>Explain how to download and visualize spatial data from the Census
+Bureau</li>
+<li>Demonstrate how to query and analyze spatial data</li>
+<li>Demonstrate how to perform complex spatial joins</li>
 </ul>
 </div>
 </div>
@@ -727,115 +734,241 @@ challenge blocks</li>
 <section><h2 class="section-heading" id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <hr class="half-width">
-<p>This is a lesson created via The Carpentries Workbench. It is written
-in <a href="https://pandoc.org/MANUAL.html" class="external-link">Pandoc-flavored Markdown</a>
-for static files and <a href="https://rmarkdown.rstudio.com/" class="external-link">R
-Markdown</a> for dynamic files that can render code into output. Please
-refer to the <a href="https://carpentries.github.io/sandpaper-docs/" class="external-link">Introduction to The
-Carpentries Workbench</a> for full documentation.</p>
-<p>What you need to know is that there are three sections required for a
-valid Carpentries lesson:</p>
+<p>The U.S. Census Bureau provides three broad categories of
+datasets:</p>
 <ol style="list-style-type: decimal">
-<li>
-<code>questions</code> are displayed at the beginning of the episode
-to prime the learner for the content.</li>
-<li>
-<code>objectives</code> are the learning objectives for an episode
-displayed with the questions.</li>
-<li>
-<code>keypoints</code> are displayed at the end of the episode to
-reinforce the objectives.</li>
+<li>Census TIGER/Line Shapefiles</li>
+<li>Decennial Census of Population and Housing</li>
+<li>American Community Survey (ACS) ### Census TIGER/Line
+Shapefiles</li>
 </ol>
-<div id="challenge-1-can-you-do-it" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-1-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 1: Can you do it?</h3>
-<div class="callout-content">
-<p>What is the output of this command?</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<p>TIGER (Topologically Integrated Geographic Encoding and Referencing)
+is the Census Bureau’s primary geospatial data product. TIGER/Line
+shapefiles are available from 2007 to the present; earlier data is
+available in ASCII format.</p>
+<p>These shapefiles include all legal boundaries and names for
+geographic units across the United States — states, counties, places,
+ZIP codes, urban areas, census blocks, block groups, and census tracts.
+Each record includes a standard <strong>GEOID</strong> that links
+directly to Census demographic data.</p>
+<p>TIGER/Line Shapefiles use <a href="https://www.ansi.org/" class="external-link">American
+National Standards Institute (ANSI)</a> codes to identify geographic
+entities, including both FIPS (Federal Information Processing Series)
+and GNIS (U.S. Geological Survey Geographic Names Information System)
+codes. For example, the field <code>STATEFP</code> contains the state
+FIPS code, and <code>STATENS</code> contains the state GNIS code.
+County-level FIPS codes are five digits: the first two identify the
+state, and the last three identify the county.</p>
+<figure><img src="official_census.png" title="A map showing U.S. Census Bureau TIGER/Line shapefile boundaries for states and counties." alt="Census USA Map" class="figure mx-auto d-block"><div class="figcaption">Census USA Map</div>
+</figure><div class="section level3">
+<h3 id="decennial-census-of-population-and-housing">Decennial Census of Population and Housing<a class="anchor" aria-label="anchor" href="#decennial-census-of-population-and-housing"></a>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">paste</span><span class="op">(</span><span class="st">"This"</span>, <span class="st">"new"</span>, <span class="st">"lesson"</span>, <span class="st">"looks"</span>, <span class="st">"good"</span><span class="op">)</span></span></code></pre>
+<p>Conducted every ten years, the Decennial Census counts every person
+living in the U.S. at a single point in time, providing the most
+complete population data with the smallest margin of error.</p>
+<p><strong>Variables include:</strong></p>
+<ul>
+<li>Population: sex, age, race, Hispanic origin, and household
+composition</li>
+<li>Housing: occupancy, vacancy status, and tenure — available at all
+geographic levels, including the highest resolution (census blocks) ###
+American Community Survey (ACS)</li>
+</ul>
+<p>The ACS is an annual survey that collects information from a sample
+of the population. It covers many topics not included in the Decennial
+Census, such as education, employment, internet access, and
+transportation. Because it is sample-based, ACS estimates carry a higher
+margin of error than Decennial Census counts.</p>
+<p>The ACS is published in two forms: - <strong>1-year
+estimates</strong> — based on 12 months of data; available for areas
+with populations of 65,000+ - <strong>5-year estimates</strong> — based
+on 60 months of data; available for all geographies, including small
+areas <strong>Variables include</strong> (in addition to standard
+demographic and housing data):</p>
+<p>Social characteristics: - School enrollment and educational
+attainment - Marital status and fertility - Grandparents as caregivers -
+Veteran and disability status - Language spoken at home Economic
+characteristics: - SNAP/Food Stamps participation - Health insurance
+coverage - Income and benefits - Employment location and commute mode
+Other: - Ancestry, citizenship status, place of birth, and year of entry
+::::::::::::::::::::::::::::::::::::: keypoints</p>
+<ul>
+<li>Census data supports planning services for specific population
+groups</li>
+<li>It can be used for business and facility site selection</li>
+<li>It supports public policy analysis</li>
+<li>It enables spatial analysis of hazard impacts, epidemiological
+models, and more ::::::::::::::::::::::::::::::::::::::::::::::::</li>
+</ul>
+<hr>
 </div>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Output </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
-<div class="accordion-body">
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] "This new lesson looks good"</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<span class="callout-header">Challenge</span>
-<div id="challenge-2-how-do-you-nest-solutions-within-challenge-blocks" class="callout-inner">
-<h3 class="callout-title">Challenge 2: how do you nest solutions within
-challenge blocks?</h3>
-<div class="callout-content">
-
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-<p>You can add a line with at least three colons and a
-<code>solution</code> tag.</p>
-</div>
-</div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
+</section><section><h2 class="section-heading" id="accessing-census-data">Accessing Census Data<a class="anchor" aria-label="anchor" href="#accessing-census-data"></a>
 </h2>
 <hr class="half-width">
-<p>You can use standard markdown for static figures with the following
-syntax:</p>
-<p><code>![optional caption that appears below the figure](figure url){alt='alt text for accessibility purposes'}</code></p>
-<figure><img src="https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg" alt="Blue Carpentries hex person logo with no text." class="figure mx-auto d-block"><div class="figcaption">You belong in The Carpentries!</div>
-</figure><div id="callout1" class="callout">
-<div class="callout-square">
-<i class="callout-icon" data-feather="bell"></i>
+<p>Before mapping or analyzing Census data, you need to obtain it. The
+Census Bureau provides several access methods:</p>
+<ul>
+<li>Manual downloads from <a href="https://data.census.gov" class="external-link">data.census.gov</a>
+</li>
+<li>Bulk file downloads</li>
+<li>Programmatic access via the Census API This lesson focuses on
+<strong>API-based access</strong>, which lets you retrieve demographic
+and socioeconomic data directly into Python workflows — without clicking
+through a web interface.</li>
+</ul>
+<div class="section level3">
+<h3 id="what-is-a-census-api-call">What Is a Census API Call?<a class="anchor" aria-label="anchor" href="#what-is-a-census-api-call"></a>
+</h3>
+<p>An API (Application Programming Interface) lets computers request
+data directly from a server using a structured URL. Census APIs return
+machine-readable data (JSON or CSV) that can be processed automatically
+in Python or other tools.</p>
+<p>Using the Census API, you can:</p>
+<ul>
+<li>Specify exactly which variables you want</li>
+<li>Choose the geographic scale (state, county, tract, block group)</li>
+<li>Automate downloads for reproducibility</li>
+<li>Integrate data directly into scripts and analyses ### How This
+Differs from Geocoding</li>
+</ul>
+<table class="table">
+<thead><tr>
+<th>Census API Access</th>
+<th>Geocoding</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Downloads official census tables</td>
+<td>Converts addresses → coordinates</td>
+</tr>
+<tr>
+<td>Uses predefined census geographies</td>
+<td>Uses external location services</td>
+</tr>
+<tr>
+<td>Returns demographic attributes</td>
+<td>Returns spatial point locations</td>
+</tr>
+<tr>
+<td>Designed for aggregation</td>
+<td>Designed for individual locations</td>
+</tr>
+</tbody>
+</table>
+<p>In this lesson, we retrieve <strong>attribute data already organized
+by census geography</strong> — we do not geocode addresses.</p>
 </div>
-<span class="callout-header">Callout</span>
-<div class="callout-inner">
-<div class="callout-content">
-<p>Callout sections can highlight information.</p>
-<p>They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present “asides”: content that is
-not central to the narrative of the lesson, e.g. by providing the answer
-to a commonly-asked question.</p>
+<div class="section level3">
+<h3 id="typical-census-api-workflow">Typical Census API Workflow<a class="anchor" aria-label="anchor" href="#typical-census-api-workflow"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Construct a request URL specifying variables and geography</li>
+<li>Send the request to the Census API endpoint</li>
+<li>Receive structured data (JSON or CSV)</li>
+<li>Convert results into a DataFrame</li>
+<li>Optionally join data with geographic boundary files for spatial
+analysis ::::::::::::::::::::::::::::::::::::: callout</li>
+</ol>
+<p><strong>Note on Privacy</strong></p>
+<p>Census APIs return <strong>aggregate data only</strong>.
+Individual-level records are never provided, ensuring respondent
+privacy.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<hr>
 </div>
-</div>
-</div>
-</section><section><h2 class="section-heading" id="math">Math<a class="anchor" aria-label="anchor" href="#math"></a>
+</section><section><h2 class="section-heading" id="tutorial-accessing-acs-data-via-the-census-api">Tutorial: Accessing ACS Data via the Census API<a class="anchor" aria-label="anchor" href="#tutorial-accessing-acs-data-via-the-census-api"></a>
 </h2>
 <hr class="half-width">
-<p>One of our episodes contains <span class="math inline">\(\LaTeX\)</span> equations when describing how to
-create dynamic reports with {knitr}, so we now use mathjax to describe
-this:</p>
-<p><code>$\alpha = \dfrac{1}{(1 - \beta)^2}$</code> becomes: <span class="math inline">\(\alpha = \dfrac{1}{(1 - \beta)^2}\)</span></p>
-<p>Cool, right?</p>
+<div class="section level3">
+<h3 id="step-1-explore-the-census-api">Step 1 — Explore the Census API<a class="anchor" aria-label="anchor" href="#step-1-explore-the-census-api"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="https://www.census.gov/data/developers.html" class="external-link">Census Developers
+Page</a>.</li>
+<li>Click <strong>Available APIs</strong> (left of the search bar).</li>
+<li>Scroll down and select <strong>American Community Survey
+(ACS)</strong>.</li>
+<li>The ACS offers <strong>1-year</strong> and <strong>5-year</strong>
+estimates. We will use the <strong>2023 ACS 5-Year</strong>, which
+covers data from 2019–2023.</li>
+<li>Scroll to <strong>Data Profiles</strong> and review the “Example
+Call” links — these are the base API URLs you’ll use in Python or a
+browser.</li>
+<li><h2 id="under-data-profiles-click-the-html-link-next-to-2023-acs-comparison-profiles-variables-to-browse-all-available-variable-codes.">Under
+<strong>Data Profiles</strong>, click the <code>html</code> link next to
+<strong>2023 ACS Comparison Profiles Variables</strong> to browse all
+available variable codes.</h2></li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="step-2-understand-api-links-for-geographic-levels">Step 2 — Understand API Links for Geographic Levels<a class="anchor" aria-label="anchor" href="#step-2-understand-api-links-for-geographic-levels"></a>
+</h3>
+<p>The ACS API uses different URL patterns depending on the geographic
+level you want:</p>
+<ul>
+<li>Country</li>
+<li>State</li>
+<li>Tract (within a state and county) For tract-level data, use the
+<code>state &gt; county &gt; tract</code> pattern. Here is an example
+for <strong>Indiana</strong> (state code <code>18</code>):</li>
+</ul>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;key=YOUR_KEY_GOES_HERE</code></pre>
+<p><strong>Key points:</strong> - <code>tract:*</code> returns all
+tracts in the specified state - <code>county:*</code> returns all
+counties in the specified state - Replace <code>state:18</code> with
+your state’s FIPS code (<a href="https://www.census.gov/library/reference/code-lists/ansi.html#state" class="external-link">State
+Codes List</a>) - <code>state:*</code> is <strong>not</strong> allowed
+for tract-level queries due to dataset size limits — you must specify a
+state —</p>
+</div>
+<div class="section level3">
+<h3 id="step-3-add-variables-to-your-request">Step 3 — Add Variables to Your Request<a class="anchor" aria-label="anchor" href="#step-3-add-variables-to-your-request"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>On the variables page from Step 1, press <strong>Ctrl+F</strong>
+and search for your variable of interest.<br>
+Example: searching “no vehicles available” returns variable
+<code>DP04_0058E</code> (the estimate version).</p></li>
+<li>
+<p>Add the variable after <code>NAME</code>, separated by a comma:
+<strong>Before:</strong></p>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&amp;for=tract:*&amp;in=state:18&amp;in=county:*</code></pre>
+<p><strong>After:</strong></p>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*</code></pre>
+</li>
+<li>
+<p>Add additional variables by separating them with commas:</p>
+<pre><code>get=NAME,DP04_0058E,DP02_0001E,DP03_0062E</code></pre>
+</li>
+</ol>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="step-4-optional-enhancements">Step 4 — Optional Enhancements<a class="anchor" aria-label="anchor" href="#step-4-optional-enhancements"></a>
+</h3>
+<ul>
+<li>
+<strong>View variable descriptions:</strong> Add
+<code>&amp;descriptive=true</code> to your URL</li>
+<li>
+<strong>Download as CSV:</strong> Add
+<code>&amp;outputFormat=csv</code> for a spreadsheet-friendly file
+::::::::::::::::::::::::::::::::::::: callout</li>
+</ul>
+<p><strong>Heads up:</strong> API variable names are
+<strong>case-sensitive</strong> — they must match exactly as listed in
+the variables page.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>📺 <strong>Video Tutorial:</strong> <a href="https://www.youtube.com/watch?v=rqePUEBrcWQ" class="external-link">How to Access ACS
+Data from the Census API</a></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="example-final-api-call">Example: Final API Call<a class="anchor" aria-label="anchor" href="#example-final-api-call"></a>
+</h3>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv</code></pre>
+<p>This returns the number of occupied households <strong>without a
+vehicle</strong> for every census tract in Indiana.</p>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
@@ -844,14 +977,14 @@ this:</p>
 <div class="callout-inner">
 <div class="callout-content">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>The Census API gives you flexible, precise access to ACS data</li>
+<li>You can combine multiple variables in a single API call</li>
+<li>
+<code>&amp;descriptive=true</code> adds plain-language descriptions
+for each variable</li>
+<li>
+<code>&amp;outputFormat=csv</code> makes the data easy to open in
+Excel or import into Python</li>
 </ul>
 </div>
 </div>
@@ -860,6 +993,7 @@ locally</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></section><section id="aio-postlunch"><p>Content from <a href="postlunch.html">Census Data Analysis with Python Notebook</a></p>
 <hr>
 <p>Last updated on 2026-05-04 |
