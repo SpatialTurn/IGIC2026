@@ -39,7 +39,7 @@ These shapefiles include all legal boundaries and names for geographic units acr
 Each record includes a standard `GEOID` that links directly to Census demographic data.
 
 
-![U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions](censusmapusa.jpg "Census USA Map")
+![*U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions*](censusmapusa.jpg "Census USA Map")
 
 
 TIGER/Line Shapefiles use American National Standards Institute (ANSI) codes to identify geographic entities, including both FIPS (Federal Information Processing Series) and GNIS (U.S. Geological Survey Geographic Names Information System) codes. For example, the field `STATEFP` contains the state FIPS code, and `STATENS` contains the state GNIS code. County-level FIPS codes are five digits: the first two identify the state, and the last three identify the county.

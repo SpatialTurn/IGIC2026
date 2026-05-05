@@ -29,13 +29,19 @@ exercises: 120 # exercise time in minutes
 
 ## Importance of Data Cleaning 
 
-Raw data is rarely ready to analyze. Before you can compute statistics, build charts, or draw conclusions, you need to ensure the data actually means what you think it means. This is especially true for Census data, which is produced through a complex pipeline of surveys, estimations, and geographic aggregations — each step introducing its own conventions that can trip up an unprepared analyst.
+Real-world data is messy. Before any analysis or visualization can happen, the data needs to be trustworthy — and that requires cleaning.
 
-Data cleaning is not busywork. It is the process of making your data trustworthy. A single uncaught placeholder value like `-666666666` treated as a real count will silently corrupt your averages and distort your maps. A column left as a string instead of a number will cause arithmetic operations to fail — or worse, succeed incorrectly. Renaming cryptic codes like `DP04_0058E` to something readable is not cosmetic; it reduces the chance of mixing up variables and makes your code reviewable by collaborators who are not Census experts.
+### For Census data specifically, three problems show up almost every time:
 
-There is also a **reproducibility** argument. A well-documented cleaning workflow — where every transformation is explicit and in order — means that you, or anyone else, can rerun the notebook six months later on updated data and get a trustworthy result. Cleaning done ad hoc in a spreadsheet leaves no trace and cannot be verified.
+- **Hidden missing values** - `-666666666` looks like a real number but means "no data." Left uncaught, it silently corrupts averages and maps
+- **Wrong data types** -  the Census API returns everything as strings. Math on strings fails in Python
+- **Unreadable column names** - `DP04_0058E` tells you nothing when looking at it first time, making it easy to mix up variables and hard for collaborators to follow your work
 
-In practice, data scientists routinely report spending **60–80% of their project time on data preparation** rather than modeling or visualization. For Census data specifically, the cleaning steps are well-defined and learnable — which is exactly why we walk through them explicitly here rather than hiding them inside helper functions.
+::::::::::::::::::::::::::::::::::::: callout
+ 
+Data scientists typically spend **60–80% of project time** on data preparation — not analysis. The good news: for Census data, the cleaning steps are predictable and learnable.
+ 
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Cleaning the Census Dataset
  
