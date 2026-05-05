@@ -693,7 +693,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-midlunch"><p>Content from <a href="midlunch.html">Acquiring and Exploration of Census Data</a></p>
 <hr>
-<p>Last updated on 2026-05-04 |
+<p>Last updated on 2026-05-05 |
 
         <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/midlunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 240 minutes</p>
@@ -954,6 +954,32 @@ privacy.</p>
 </div>
 </div>
 </div>
+<div id="getting-started-with-the-census-notebook" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="getting-started-with-the-census-notebook" class="callout-inner">
+<h3 class="callout-title">Getting Started with the Census Notebook</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook linked below, which
+covers everything on this page hands-on inside Google Colab.</p>
+<p>This part of the session covers:</p>
+<p>-<strong>Part 1: Retrieving the Dataset</strong> - You can refer to
+the theory just below.</p>
+<p>-<strong>Part 2: Exploring the Dataset</strong> - Structures,
+variables, columns, geographical units.</p>
+<p><a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a></p>
+<div class="section level5">
+<h5 id="note-after-completion-do-not-close-the-notebook--keep-it-open-as-we-will-use-it-for-the-next-part-of-the-workshop-">
+<strong>Note:</strong> After Completion, DO NOT close the notebook.
+Keep it open as we will use it for the next part of the workshop.<a class="anchor" aria-label="anchor" href="#note-after-completion-do-not-close-the-notebook--keep-it-open-as-we-will-use-it-for-the-next-part-of-the-workshop-"></a>
+</h5>
+</div>
+</div>
+</div>
+</div>
 <hr>
 </div>
 </section><section><h2 class="section-heading" id="tutorial-accessing-acs-data-via-the-census-api">Tutorial: Accessing ACS Data via the Census API<a class="anchor" aria-label="anchor" href="#tutorial-accessing-acs-data-via-the-census-api"></a>
@@ -1168,10 +1194,10 @@ trustworthy. A single uncaught placeholder value like
 <code>-666666666</code> treated as a real count will silently corrupt
 your averages and distort your maps. A column left as a string instead
 of a number will cause arithmetic operations to fail — or worse, succeed
-incorrectly. Renaming cryptic codes like DP04_0058E to something
-readable is not cosmetic; it reduces the chance of mixing up variables
-and makes your code reviewable by collaborators who are not Census
-experts.</p>
+incorrectly. Renaming cryptic codes like <code>DP04_0058E</code> to
+something readable is not cosmetic; it reduces the chance of mixing up
+variables and makes your code reviewable by collaborators who are not
+Census experts.</p>
 <p>There is also a <strong>reproducibility</strong> argument. A
 well-documented cleaning workflow — where every transformation is
 explicit and in order — means that you, or anyone else, can rerun the
@@ -1208,6 +1234,33 @@ not <code>NaN</code>
 which are hard to read</li>
 <li>The dataset may have rows that should be excluded from analysis</li>
 </ul>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout-inner">
+<h3 class="callout-title">
+<strong>Prerequisites</strong>- Completion of
+Part 1 and 2 of the Notebook.</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook Part <code>3</code> and
+<code>4</code> linked below, which covers everything on this page
+hands-on inside Google Colab.</p>
+<p>The hands-on work for this section:</p>
+<ul>
+<li>
+<strong>Part 3 - Data Cleaning</strong> - null value removal,
+shapefile join, county ranking, summary statistics</li>
+<li>
+<strong>Part 4 — Visual Maps</strong> - bar charts, histogram, and
+result interpretation</li>
+</ul>
+<p><a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a></p>
+</div>
+</div>
+</div>
 </div>
 <div class="section level3">
 <h3 id="step-1-cast-estimate-columns-to-numbers">Step 1 — Cast Estimate Columns to Numbers<a class="anchor" aria-label="anchor" href="#step-1-cast-estimate-columns-to-numbers"></a>
@@ -1433,10 +1486,10 @@ alone can miss</li>
 <div class="section level3">
 <h3 id="advantages-and-risks">Advantages and Risks<a class="anchor" aria-label="anchor" href="#advantages-and-risks"></a>
 </h3>
-<div class="section level4">
-<h4 id="visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind">Visualization is powerful, but it can mislead as easily as it
+<div class="section level5">
+<h5 id="visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind">Visualization is powerful, but it can mislead as easily as it
 informs. Keep both sides in mind:<a class="anchor" aria-label="anchor" href="#visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind"></a>
-</h4>
+</h5>
 <p><strong>Advantages:</strong> Spot trends in seconds; reduce cognitive
 load; reveal outliers and clusters; communicate across technical skill
 levels; support storytelling with data.</p>
@@ -1527,26 +1580,10 @@ DataFrames and GeoPandas GeoDataFrames you built in Parts 1–3:</p>
 </tr>
 </tbody>
 </table>
-<p>For non-Python workflows, Tableau Public and QGIS are strong
-alternatives for Census data — both can accept the shapefiles and CSVs
-you produce here.</p>
-</div>
-</section><section><h2 class="section-heading" id="building-the-visualizations-parts-3-4">Building the Visualizations (Parts 3 &amp; 4)<a class="anchor" aria-label="anchor" href="#building-the-visualizations-parts-3-4"></a>
-</h2>
-<hr class="half-width">
-<p>The hands-on work for this section is in the two Python
-notebooks:</p>
-<ul>
-<li>
-<strong><code>Part 3</code></strong> — data cleaning, shapefile
-join, county ranking, summary statistics</li>
-<li>
-<strong><code>Part 4</code></strong> — choropleth maps, bar charts,
-histogram, and result interpretation Open the notebooks in Google Colab
-(make your own copy to save progress) or run them locally with
-Jupyter.</li>
-</ul>
-<div id="discussion1" class="callout discussion">
+<p>For non-Python workflows, <strong>QGIS</strong> is a strong
+alternative for Census data as it can accept the shapefiles and CSVs you
+produce here.</p>
+<div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -1603,6 +1640,7 @@ ethical requirement when publishing Census visualizations</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></section>
 </div>
     </main>

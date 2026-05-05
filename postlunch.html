@@ -234,7 +234,6 @@
         <ul><li><a href="#importance-of-data-cleaning">Importance of Data Cleaning</a></li>
 <li><a href="#cleaning-the-census-dataset">Cleaning the Census Dataset</a></li>
 <li><a href="#introduction-to-data-visualization">Introduction to Data Visualization</a></li>
-<li><a href="#building-the-visualizations-parts-3-4">Building the Visualizations (Parts 3 &amp; 4)</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -362,10 +361,10 @@ trustworthy. A single uncaught placeholder value like
 <code>-666666666</code> treated as a real count will silently corrupt
 your averages and distort your maps. A column left as a string instead
 of a number will cause arithmetic operations to fail — or worse, succeed
-incorrectly. Renaming cryptic codes like DP04_0058E to something
-readable is not cosmetic; it reduces the chance of mixing up variables
-and makes your code reviewable by collaborators who are not Census
-experts.</p>
+incorrectly. Renaming cryptic codes like <code>DP04_0058E</code> to
+something readable is not cosmetic; it reduces the chance of mixing up
+variables and makes your code reviewable by collaborators who are not
+Census experts.</p>
 <p>There is also a <strong>reproducibility</strong> argument. A
 well-documented cleaning workflow — where every transformation is
 explicit and in order — means that you, or anyone else, can rerun the
@@ -397,7 +396,32 @@ not <code>NaN</code>
 <li>Column names are raw variable codes like <code>DP04_0058E</code>,
 which are hard to read</li>
 <li>The dataset may have rows that should be excluded from analysis</li>
-</ul></div>
+</ul><div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout-inner">
+<h3 class="callout-title">
+<strong>Prerequisites</strong>- Completion of
+Part 1 and 2 of the Notebook.</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook Part <code>3</code> and
+<code>4</code> linked below, which covers everything on this page
+hands-on inside Google Colab.</p>
+<p>The hands-on work for this section:</p>
+<ul><li>
+<strong>Part 3 - Data Cleaning</strong> - null value removal,
+shapefile join, county ranking, summary statistics</li>
+<li>
+<strong>Part 4 — Visual Maps</strong> - bar charts, histogram, and
+result interpretation</li>
+</ul><p><a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a></p>
+</div>
+</div>
+</div>
+</div>
 <div class="section level3">
 <h3 id="step-1-cast-estimate-columns-to-numbers">Step 1 — Cast Estimate Columns to Numbers<a class="anchor" aria-label="anchor" href="#step-1-cast-estimate-columns-to-numbers"></a></h3>
 <p>The Census API returns all values as strings. Before doing any math,
@@ -602,9 +626,9 @@ alone can miss</li>
 </ul></div>
 <div class="section level3">
 <h3 id="advantages-and-risks">Advantages and Risks<a class="anchor" aria-label="anchor" href="#advantages-and-risks"></a></h3>
-<div class="section level4">
-<h4 id="visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind">Visualization is powerful, but it can mislead as easily as it
-informs. Keep both sides in mind:<a class="anchor" aria-label="anchor" href="#visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind"></a></h4>
+<div class="section level5">
+<h5 id="visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind">Visualization is powerful, but it can mislead as easily as it
+informs. Keep both sides in mind:<a class="anchor" aria-label="anchor" href="#visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind"></a></h5>
 <p><strong>Advantages:</strong> Spot trends in seconds; reduce cognitive
 load; reveal outliers and clusters; communicate across technical skill
 levels; support storytelling with data.</p>
@@ -675,22 +699,10 @@ DataFrames and GeoPandas GeoDataFrames you built in Parts 1–3:</p>
 <td>Full control over static figures; publication-ready output</td>
 </tr><tr><td><strong>GeoPandas <code>.plot()</code></strong></td>
 <td>Choropleth maps directly from a GeoDataFrame</td>
-</tr></tbody></table><p>For non-Python workflows, Tableau Public and QGIS are strong
-alternatives for Census data — both can accept the shapefiles and CSVs
-you produce here.</p>
-</div>
-</section><section><h2 class="section-heading" id="building-the-visualizations-parts-3-4">Building the Visualizations (Parts 3 &amp; 4)<a class="anchor" aria-label="anchor" href="#building-the-visualizations-parts-3-4"></a></h2>
-<hr class="half-width"><p>The hands-on work for this section is in the two Python
-notebooks:</p>
-<ul><li>
-<strong><code>Part 3</code></strong> — data cleaning, shapefile
-join, county ranking, summary statistics</li>
-<li>
-<strong><code>Part 4</code></strong> — choropleth maps, bar charts,
-histogram, and result interpretation Open the notebooks in Google Colab
-(make your own copy to save progress) or run them locally with
-Jupyter.</li>
-</ul><div id="discussion1" class="callout discussion">
+</tr></tbody></table><p>For non-Python workflows, <strong>QGIS</strong> is a strong
+alternative for Census data as it can accept the shapefiles and CSVs you
+produce here.</p>
+<div id="discussion2" class="callout discussion">
 <div class="callout-square">
 <i class="callout-icon" data-feather="message-circle"></i>
 </div>
@@ -743,6 +755,7 @@ ethical requirement when publishing Census visualizations</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
 </section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter Bottom"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="midlunch.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
