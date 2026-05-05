@@ -757,8 +757,8 @@ places, ZIP codes, urban areas, census blocks, block groups, and census
 tracts</em>.</p>
 <p>Each record includes a standard <code>GEOID</code> that links
 directly to Census demographic data.</p>
-<figure><img src="censusmapusa.jpg" title="Census USA Map" alt="U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions" class="figure mx-auto d-block"><div class="figcaption">U.S. Census Bureau TIGER/Line shapefile
-boundaries for State Regions</div>
+<figure><img src="censusmapusa.jpg" title="Census USA Map" alt="U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions" class="figure mx-auto d-block"><div class="figcaption"><em>U.S. Census Bureau TIGER/Line shapefile
+boundaries for State Regions</em></div>
 </figure><p>TIGER/Line Shapefiles use American National Standards Institute
 (ANSI) codes to identify geographic entities, including both FIPS
 (Federal Information Processing Series) and GNIS (U.S. Geological Survey
@@ -1181,32 +1181,40 @@ charts, and histograms</li>
 <section><h2 class="section-heading" id="importance-of-data-cleaning">Importance of Data Cleaning<a class="anchor" aria-label="anchor" href="#importance-of-data-cleaning"></a>
 </h2>
 <hr class="half-width">
-<p>Raw data is rarely ready to analyze. Before you can compute
-statistics, build charts, or draw conclusions, you need to ensure the
-data actually means what you think it means. This is especially true for
-Census data, which is produced through a complex pipeline of surveys,
-estimations, and geographic aggregations — each step introducing its own
-conventions that can trip up an unprepared analyst.</p>
-<p>Data cleaning is not busywork. It is the process of making your data
-trustworthy. A single uncaught placeholder value like
-<code>-666666666</code> treated as a real count will silently corrupt
-your averages and distort your maps. A column left as a string instead
-of a number will cause arithmetic operations to fail — or worse, succeed
-incorrectly. Renaming cryptic codes like <code>DP04_0058E</code> to
-something readable is not cosmetic; it reduces the chance of mixing up
-variables and makes your code reviewable by collaborators who are not
-Census experts.</p>
-<p>There is also a <strong>reproducibility</strong> argument. A
-well-documented cleaning workflow — where every transformation is
-explicit and in order — means that you, or anyone else, can rerun the
-notebook six months later on updated data and get a trustworthy result.
-Cleaning done ad hoc in a spreadsheet leaves no trace and cannot be
-verified.</p>
-<p>In practice, data scientists routinely report spending <strong>60–80%
-of their project time on data preparation</strong> rather than modeling
-or visualization. For Census data specifically, the cleaning steps are
-well-defined and learnable — which is exactly why we walk through them
-explicitly here rather than hiding them inside helper functions.</p>
+<p>Real-world data is messy. Before any analysis or visualization can
+happen, the data needs to be trustworthy — and that requires
+cleaning.</p>
+<div class="section level3">
+<h3 id="for-census-data-specifically-three-problems-show-up-almost-every-time">For Census data specifically, three problems show up almost every
+time:<a class="anchor" aria-label="anchor" href="#for-census-data-specifically-three-problems-show-up-almost-every-time"></a>
+</h3>
+<ul>
+<li>
+<strong>Hidden missing values</strong> - <code>-666666666</code>
+looks like a real number but means “no data.” Left uncaught, it silently
+corrupts averages and maps</li>
+<li>
+<strong>Wrong data types</strong> - the Census API returns
+everything as strings. Math on strings fails in Python</li>
+<li>
+<strong>Unreadable column names</strong> - <code>DP04_0058E</code>
+tells you nothing when looking at it first time, making it easy to mix
+up variables and hard for collaborators to follow your work</li>
+</ul>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Data scientists typically spend <strong>60–80% of project
+time</strong> on data preparation — not analysis. The good news: for
+Census data, the cleaning steps are predictable and learnable.</p>
+</div>
+</div>
+</div>
+</div>
 </section><section><h2 class="section-heading" id="cleaning-the-census-dataset">Cleaning the Census Dataset<a class="anchor" aria-label="anchor" href="#cleaning-the-census-dataset"></a>
 </h2>
 <hr class="half-width">
@@ -1300,7 +1308,7 @@ the variables you downloaded:</p>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a> </span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>df.rename(columns<span class="op">=</span>rename_map, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre>
 </div>
-<div id="callout1" class="callout">
+<div id="callout2" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
@@ -1507,7 +1515,7 @@ centered at the wrong value distorts spatial patterns</li>
 <strong>Over-aggregation</strong> — rolling tract-level data all the
 way up to state averages hides local variation</li>
 </ul>
-<div id="callout2" class="callout">
+<div id="callout3" class="callout">
 <div class="callout-square">
 <i class="callout-icon" data-feather="bell"></i>
 </div>
