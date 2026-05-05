@@ -374,14 +374,26 @@ Excel or import into Python</li>
 </ul></section><section id="postlunch"><h2 class="section-heading"><a href="postlunch.html">Census Data Analysis with Python Notebook</a></h2>
 <hr class="half-width">
 <ul>
-<li>Use <code>.md</code> files for episodes when you want static
-content</li>
-<li>Use <code>.Rmd</code> files for episodes when you need to generate
-output</li>
-<li>Run <code>sandpaper::check_lesson()</code> to identify any issues
-with your lesson</li>
-<li>Run <code>sandpaper::build_lesson()</code> to preview your lesson
-locally</li>
+<li>Always cast Census columns to numeric before analysis — the API
+returns everything as strings</li>
+<li>Replace <code>-666666666</code> with <code>NaN</code> so pandas
+treats it as missing data</li>
+<li>Rename cryptic variable codes to descriptive column names early in
+your workflow</li>
+<li>Use <code>groupby</code> with <code>.agg()</code> to compute
+multiple statistics at once across geographic units</li>
+</ul>
+<ul>
+<li>Exploratory plots help you understand your data; explanatory plots
+help others understand your findings</li>
+<li>Choropleth maps, histograms, and bar charts each answer a different
+question about Census data</li>
+<li>Color scale choices, axis ranges, and aggregation level all affect
+how a visualization is interpreted</li>
+<li>Use colorblind-friendly palettes and always label axes, titles, and
+legends</li>
+<li>Transparency about data suppression and margins of error is an
+ethical requirement when publishing Census visualizations</li>
 </ul></section>
 </div>
     </main>
@@ -431,9 +443,9 @@ locally</li>
   "creativeWorkStatus": "active",
   "url": "https://carpentries.github.io/workbench-template-md/instructor/key-points.html",
   "identifier": "https://carpentries.github.io/workbench-template-md/instructor/key-points.html",
-  "dateCreated": "2026-05-04",
-  "dateModified": "2026-05-04",
-  "datePublished": "2026-05-04"
+  "dateCreated": "2026-05-05",
+  "dateModified": "2026-05-05",
+  "datePublished": "2026-05-05"
 }
 
   </script><script>
