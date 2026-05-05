@@ -353,9 +353,8 @@ charts, and histograms</li>
 <hr class="half-width"><p>Real-world data is messy. Before any analysis or visualization can
 happen, the data needs to be trustworthy — and that requires
 cleaning.</p>
-<div class="section level3">
-<h3 id="for-census-data-specifically-three-problems-show-up-almost-every-time">For Census data specifically, three problems show up almost every
-time:<a class="anchor" aria-label="anchor" href="#for-census-data-specifically-three-problems-show-up-almost-every-time"></a></h3>
+<p>For Census data specifically, three problems show up almost every
+time:</p>
 <ul><li>
 <strong>Hidden missing values</strong> - <code>-666666666</code>
 looks like a real number but means “no data.” Left uncaught, it silently
@@ -377,7 +376,6 @@ up variables and hard for collaborators to follow your work</li>
 <p>Data scientists typically spend <strong>60–80% of project
 time</strong> on data preparation — not analysis. The good news: for
 Census data, the cleaning steps are predictable and learnable.</p>
-</div>
 </div>
 </div>
 </div>
@@ -631,20 +629,22 @@ alone can miss</li>
 </ul></div>
 <div class="section level3">
 <h3 id="advantages-and-risks">Advantages and Risks<a class="anchor" aria-label="anchor" href="#advantages-and-risks"></a></h3>
-<div class="section level5">
-<h5 id="visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind">Visualization is powerful, but it can mislead as easily as it
-informs. Keep both sides in mind:<a class="anchor" aria-label="anchor" href="#visualization-is-powerful-but-it-can-mislead-as-easily-as-it-informs--keep-both-sides-in-mind"></a></h5>
-<p><strong>Advantages:</strong> Spot trends in seconds; reduce cognitive
-load; reveal outliers and clusters; communicate across technical skill
-levels; support storytelling with data.</p>
-<p><strong>Risks and pitfalls to avoid:</strong></p>
+<p>Visualization is powerful, but it can mislead as easily as it
+informs. Keep both sides in mind:</p>
+<p><strong>Advantages:</strong></p>
+<ul><li>Spot trends in seconds</li>
+<li>Reduce cognitive load</li>
+<li>Reveal outliers and clusters</li>
+<li>Communicate across technical skill levels</li>
+<li>Support storytelling with data</li>
+</ul><p><strong>Stuff to Avoid:</strong></p>
 <ul><li>
 <strong>Truncated axes</strong> — starting a bar chart’s y-axis at
 500 instead of 0 can make a small difference look enormous</li>
 <li>
-<strong>Chartjunk</strong> (Edward Tufte’s term) — decorative
-elements like 3D effects, excessive gridlines, and gradient fills that
-add visual noise without adding information</li>
+<strong>Chartjunk</strong> — decorative elements like 3D effects,
+excessive gridlines, and gradient fills that add visual noise without
+adding information</li>
 <li>
 <strong>Misleading color scales</strong> — a diverging color palette
 centered at the wrong value distorts spatial patterns</li>
@@ -666,11 +666,10 @@ is essential when sharing Census visualizations.</p>
 </div>
 </div>
 </div>
-</div>
 <div class="section level3">
 <h3 id="principles-of-effective-visualization">Principles of Effective Visualization<a class="anchor" aria-label="anchor" href="#principles-of-effective-visualization"></a></h3>
-<p>A few foundational rules, drawing on Edward Tufte, Alberto Cairo, and
-William Cleveland:</p>
+<div class="section level6">
+<h6 id="foundational-rules"><strong>Foundational Rules:</strong><a class="anchor" aria-label="anchor" href="#foundational-rules"></a></h6>
 <ol style="list-style-type: decimal"><li>
 <strong>Choose the right chart type</strong> — choropleth for
 spatial distribution, histogram for distribution shape, bar chart for
@@ -694,6 +693,7 @@ information to ink. Every element should earn its place.</li>
 <strong>Add accessibility</strong> — include alt text for published
 figures; use patterns in addition to color where possible.</li>
 </ol></div>
+</div>
 <div class="section level3">
 <h3 id="tools-we-use-in-this-workshop">Tools We Use in This Workshop<a class="anchor" aria-label="anchor" href="#tools-we-use-in-this-workshop"></a></h3>
 <p>We focus on Python tools that integrate directly with the pandas
