@@ -151,13 +151,13 @@ Census APIs return **aggregate data only**. Individual-level records are never p
 
 #### Getting Started with the Census Notebook
 
-Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab.
+Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab. More Reading on Census API below!
 
 This part of the session covers:
 
--**Part 1: Retrieving the Dataset** - You can refer to the theory just below. 
+- **Part 1: Retrieving the Dataset** - You can refer to the theory just below. 
 
--**Part 2: Exploring the Dataset** - Structures, variables, columns, geographical units.  
+- **Part 2: Exploring the Dataset** - Structures, variables, columns, geographical units.  
 
 <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
 
@@ -249,7 +249,7 @@ https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:
 https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&for=tract:*&in=state:18&in=county:*&descriptive=true&outputFormat=csv
 ```
  
-#### This returns the number of occupied households **without a vehicle** for every census tract in Indiana.
+##### This returns the number of occupied households **without a vehicle** for every census tract in Indiana.
  
 ::::::::::::::::::::::::::::::::::::: keypoints
  

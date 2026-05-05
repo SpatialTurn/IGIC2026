@@ -43,7 +43,7 @@ After downloading ACS data via the Census API (see the previous lesson), the raw
  
 ### What We Are Working With ?
  
-Open your notebook from **Part 3** (`part3_clean_and_analyze.ipynb`). The data was downloaded as a CSV from the Census API and loaded into a pandas DataFrame. At this stage it has some rough edges:
+Jump to **Part 3** of the notebook. The data was downloaded as a CSV from the Census API and loaded into a pandas DataFrame. At this stage it has some rough edges:
 
 - Every column is stored as a **string** — even numeric estimates like population counts
 - Missing or suppressed values are encoded as **`-666666666`** (a Census Bureau placeholder), not `NaN`
@@ -55,12 +55,12 @@ Open your notebook from **Part 3** (`part3_clean_and_analyze.ipynb`). The data w
 
 #### **Prerequisites**- Completion of Part 1 and 2 of the Notebook.  
 
-Work through the interactive Python notebook Part `3` and `4` linked below, which covers everything on this page hands-on inside Google Colab.
+Work through the interactive Python notebook Part `3` and `4` linked below, which covers everything on this page hands-on inside Google Colab. More explanation on the process of data cleaning explained below!
  
 The hands-on work for this section:
  
-- **Part 3 - Data Cleaning** - null value removal, shapefile join, county ranking, summary statistics
-- **Part 4 — Visual Maps** - bar charts, histogram, and result interpretation
+- **Part 3: Data Cleaning** - null value removal, shapefile join, county ranking, summary statistics
+- **Part 4: Visual Maps** - Bar charts, histogram, choropleth maps, and result interpretation
 
 <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
 
