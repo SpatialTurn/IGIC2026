@@ -31,7 +31,7 @@ exercises: 120 # exercise time in minutes
 
 Real-world data is messy. Before any analysis or visualization can happen, the data needs to be trustworthy — and that requires cleaning.
 
-### For Census data specifically, three problems show up almost every time:
+For Census data specifically, three problems show up almost every time:
 
 - **Hidden missing values** - `-666666666` looks like a real number but means "no data." Left uncaught, it silently corrupts averages and maps
 - **Wrong data types** -  the Census API returns everything as strings. Math on strings fails in Python
@@ -227,14 +227,20 @@ Census datasets can have thousands of rows and dozens of columns. A 1,000-tract 
 
 ### Advantages and Risks
  
-##### Visualization is powerful, but it can mislead as easily as it informs. Keep both sides in mind:
+Visualization is powerful, but it can mislead as easily as it informs. Keep both sides in mind:
  
-**Advantages:** Spot trends in seconds; reduce cognitive load; reveal outliers and clusters; communicate across technical skill levels; support storytelling with data.
+**Advantages:** 
+
+- Spot trends in seconds
+- Reduce cognitive load 
+- Reveal outliers and clusters 
+- Communicate across technical skill levels 
+- Support storytelling with data
  
-**Risks and pitfalls to avoid:**
+**Stuff to Avoid:**
 
 - **Truncated axes** — starting a bar chart's y-axis at 500 instead of 0 can make a small difference look enormous
-- **Chartjunk** (Edward Tufte's term) — decorative elements like 3D effects, excessive gridlines, and gradient fills that add visual noise without adding information
+- **Chartjunk** — decorative elements like 3D effects, excessive gridlines, and gradient fills that add visual noise without adding information
 - **Misleading color scales** — a diverging color palette centered at the wrong value distorts spatial patterns
 - **Over-aggregation** — rolling tract-level data all the way up to state averages hides local variation
 
@@ -247,7 +253,7 @@ Census datasets can have thousands of rows and dozens of columns. A 1,000-tract 
 
 ### Principles of Effective Visualization
  
-A few foundational rules, drawing on Edward Tufte, Alberto Cairo, and William Cleveland:
+###### **Foundational Rules:**
  
 1. **Choose the right chart type** — choropleth for spatial distribution, histogram for distribution shape, bar chart for ranking, scatter plot for relationships. Avoid pie charts for more than 4–5 categories.
 2. **Label everything** — title, axis labels, units, and a legend. A chart with no axis labels cannot be interpreted.
