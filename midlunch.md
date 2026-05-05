@@ -147,6 +147,24 @@ Census APIs return **aggregate data only**. Individual-level records are never p
  
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### Getting Started with the Census Notebook
+
+Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab.
+
+This part of the session covers:
+
+-**Part 1: Retrieving the Dataset** - You can refer to the theory just below. 
+
+-**Part 2: Exploring the Dataset** - Structures, variables, columns, geographical units.  
+
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
+
+##### **Note:** After Completion, DO NOT close the notebook. Keep it open as we will use it for the next part of the workshop. 
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 ---
 
 

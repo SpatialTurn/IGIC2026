@@ -31,7 +31,7 @@ exercises: 120 # exercise time in minutes
 
 Raw data is rarely ready to analyze. Before you can compute statistics, build charts, or draw conclusions, you need to ensure the data actually means what you think it means. This is especially true for Census data, which is produced through a complex pipeline of surveys, estimations, and geographic aggregations — each step introducing its own conventions that can trip up an unprepared analyst.
 
-Data cleaning is not busywork. It is the process of making your data trustworthy. A single uncaught placeholder value like `-666666666` treated as a real count will silently corrupt your averages and distort your maps. A column left as a string instead of a number will cause arithmetic operations to fail — or worse, succeed incorrectly. Renaming cryptic codes like DP04_0058E to something readable is not cosmetic; it reduces the chance of mixing up variables and makes your code reviewable by collaborators who are not Census experts.
+Data cleaning is not busywork. It is the process of making your data trustworthy. A single uncaught placeholder value like `-666666666` treated as a real count will silently corrupt your averages and distort your maps. A column left as a string instead of a number will cause arithmetic operations to fail — or worse, succeed incorrectly. Renaming cryptic codes like `DP04_0058E` to something readable is not cosmetic; it reduces the chance of mixing up variables and makes your code reviewable by collaborators who are not Census experts.
 
 There is also a **reproducibility** argument. A well-documented cleaning workflow — where every transformation is explicit and in order — means that you, or anyone else, can rerun the notebook six months later on updated data and get a trustworthy result. Cleaning done ad hoc in a spreadsheet leaves no trace and cannot be verified.
 
@@ -49,6 +49,22 @@ Open your notebook from **Part 3** (`part3_clean_and_analyze.ipynb`). The data w
 - Missing or suppressed values are encoded as **`-666666666`** (a Census Bureau placeholder), not `NaN`
 - Column names are raw variable codes like `DP04_0058E`, which are hard to read
 - The dataset may have rows that should be excluded from analysis
+
+
+:::::::::::::::::::::::::::::::::::::::::: challenge
+
+#### **Prerequisites**- Completion of Part 1 and 2 of the Notebook.  
+
+Work through the interactive Python notebook Part `3` and `4` linked below, which covers everything on this page hands-on inside Google Colab.
+ 
+The hands-on work for this section:
+ 
+- **Part 3 - Data Cleaning** - null value removal, shapefile join, county ranking, summary statistics
+- **Part 4 — Visual Maps** - bar charts, histogram, and result interpretation
+
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ### Step 1 — Cast Estimate Columns to Numbers
@@ -205,7 +221,7 @@ Census datasets can have thousands of rows and dozens of columns. A 1,000-tract 
 
 ### Advantages and Risks
  
-#### Visualization is powerful, but it can mislead as easily as it informs. Keep both sides in mind:
+##### Visualization is powerful, but it can mislead as easily as it informs. Keep both sides in mind:
  
 **Advantages:** Spot trends in seconds; reduce cognitive load; reveal outliers and clusters; communicate across technical skill levels; support storytelling with data.
  
@@ -243,16 +259,8 @@ We focus on Python tools that integrate directly with the pandas DataFrames and 
 | **Matplotlib** | Full control over static figures; publication-ready output |
 | **GeoPandas `.plot()`** | Choropleth maps directly from a GeoDataFrame |
  
-For non-Python workflows, Tableau Public and QGIS are strong alternatives for Census data — both can accept the shapefiles and CSVs you produce here.
+For non-Python workflows, **QGIS** is a strong alternative for Census data as it can accept the shapefiles and CSVs you produce here.
 
-
-## Building the Visualizations (Parts 3 & 4)
- 
-The hands-on work for this section is in the two Python notebooks:
- 
-- **`Part 3`** — data cleaning, shapefile join, county ranking, summary statistics
-- **`Part 4`** — choropleth maps, bar charts, histogram, and result interpretation
-Open the notebooks in Google Colab (make your own copy to save progress) or run them locally with Jupyter.
 
 ::::::::::::::::::::::::::::::::::::: challenge
 
