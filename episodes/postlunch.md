@@ -262,18 +262,6 @@ Visualization is powerful, but it can mislead as easily as it informs. Keep both
 5. **Remove what is not data** — maximize the ratio of information to ink. Every element should earn its place.
 6. **Add accessibility** — include alt text for published figures; use patterns in addition to color where possible.
 
-### Tools We Use in This Workshop
- 
-We focus on Python tools that integrate directly with the pandas DataFrames and GeoPandas GeoDataFrames you built in Parts 1–3:
- 
-| Library | Best For |
-|---|---|
-| **Matplotlib** | Full control over static figures; publication-ready output |
-| **GeoPandas `.plot()`** | Choropleth maps directly from a GeoDataFrame |
- 
-For non-Python workflows, **QGIS** is a strong alternative for Census data as it can accept the shapefiles and CSVs you produce here.
-
-
 ::::::::::::::::::::::::::::::::::::: challenge
 
 In Part 4 of the Notebook. Complete the following:
@@ -286,6 +274,11 @@ Alternatively, refer to the **Bad and Good Plotting** examples in the `Start Her
 
 Alternatively, refer to the **Bad and Good Plotting** examples in the jupyter module [here](https://spatialturn.github.io/DataVisualization/introduction.html) for a comparison of what effective and ineffective Census visualizations look like in practice.
 
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: callout
+ 
+For non-Python workflows, **QGIS** is a strong alternative for Census data as it can accept the shapefiles and CSVs you produce here. Check QGIS module [Here](https://spatialturn.github.io/DataVisualization/).
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
