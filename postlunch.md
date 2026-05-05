@@ -4,111 +4,264 @@ teaching: 120 # teaching time in minutes
 exercises: 120 # exercise time in minutes
 ---
 
-:::::::::::::::::::::::::::::::::::::: questions 
-
-- How do you write a lesson using Markdown and `{sandpaper}`?
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: objectives
-
-- Explain how to use markdown with The Carpentries Workbench
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
-
-::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Introduction
-
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.html) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
-
-What you need to know is that there are three sections required for a valid
-Carpentries lesson:
-
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
-```
-
-:::::::::::::::::::::::: solution 
-
-## Output
+:::::::::::::::::::::::::::::::::::::: questions
  
-```output
-[1] "This new lesson looks good"
-```
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2: how do you nest solutions within challenge blocks?
-
-:::::::::::::::::::::::: solution 
-
-You can add a line with at least three colons and a `solution` tag.
-
-:::::::::::::::::::::::::::::::::
+- How do you clean and prepare raw Census data for analysis?
+- How do you rename columns, sort data, and compute summary statistics?
+- What is data visualization and why does it matter for Census analysis?
+- What makes a visualization effective versus misleading?
+- Which Python tools are best for creating publication-ready plots?
+::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+::::::::::::::::::::::::::::::::::::: objectives
+ 
+- Clean a Census DataFrame: handle placeholder values, cast data types, and rename columns
+- Sort and filter data to identify top geographic units
+- Compute grouped summary statistics at the county and state level
+- Define data visualization and explain its role in Census data analysis
+- Recognize the principles of effective visualization design
+- Identify common pitfalls (misleading charts, chartjunk, accessibility barriers)
+- Use Python (Matplotlib, GeoPandas) to create choropleth maps, bar charts, and histograms
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Figures
 
-You can use standard markdown for static figures with the following syntax:
+---
 
-`![optional caption that appears below the figure](figure url){alt='alt text for
-accessibility purposes'}`
+## Cleaning the Census Dataset
+ 
+After downloading ACS data via the Census API (see the previous lesson), the raw DataFrame needs several cleaning steps before it is ready for analysis or visualization. This section walks through each step using the file you saved in Part 1.
+ 
+### What We Are Working With ?
+ 
+Open your notebook from **Part 3** (`part3_clean_and_analyze.ipynb`). The data was downloaded as a CSV from the Census API and loaded into a pandas DataFrame. At this stage it has some rough edges:
 
-![You belong in The Carpentries!](https://raw.githubusercontent.com/carpentries/logo/master/Badge_Carpentries.svg){alt='Blue Carpentries hex person logo with no text.'}
+- Every column is stored as a **string** — even numeric estimates like population counts
+- Missing or suppressed values are encoded as **`-666666666`** (a Census Bureau placeholder), not `NaN`
+- Column names are raw variable codes like `DP04_0058E`, which are hard to read
+- The dataset may have rows that should be excluded from analysis
+
+
+### Step 1 — Cast Estimate Columns to Numbers
+ 
+The Census API returns all values as strings. Before doing any math, convert estimate columns (those ending in `E`) to numeric:
+ 
+```python
+CENSUS_NULL = -666666666
+ 
+estimate_cols = [c for c in df.columns if c.endswith("E") and c not in ("NAME", "GEO_ID", "GEOID")]
+ 
+for col in estimate_cols:
+    df[col] = pd.to_numeric(df[col], errors="coerce")
+    df[col] = df[col].replace(CENSUS_NULL, pd.NA)
+```
+`errors="coerce"` turns anything that cannot be parsed (e.g., `"N"` for not applicable) into `NaN` automatically. The `.replace()` call then converts the `-666666666` placeholders to `NaN` as well, so both types of missing data are handled consistently.
+
+
+### Step 2 — Rename Columns to Human-Readable Labels
+ 
+Raw ACS codes are hard to work with. Create a rename dictionary for the variables you downloaded:
+ 
+```python
+rename_map = {
+    "DP04_0058E": "no_vehicle_households",
+    "DP03_0062E": "median_household_income",
+    "DP02_0001E": "total_households",
+    # add more as needed
+}
+ 
+df.rename(columns=rename_map, inplace=True)
+```
 
 ::::::::::::::::::::::::::::::::::::: callout
+ 
+**Tip:** Keep a separate reference dictionary that maps the new names back to the original ACS codes and their full descriptions. This makes your work reproducible and easier to document.
+ 
+```python
+variable_reference = {
+    "no_vehicle_households": ("DP04_0058E", "Occupied housing units with no vehicle available"),
+    "median_household_income": ("DP03_0062E", "Median household income in the past 12 months"),
+}
+```
+ 
+::::::::::::::::::::::::::::::::::::::::::::::::
 
-Callout sections can highlight information.
+### Step 3 — Drop or Flag Rows with Missing Data
+ 
+Decide how to handle rows where your key variable is `NaN`:
+ 
+```python
+variable = "no_vehicle_households"
+ 
+# Option A — drop rows missing the key variable entirely
+df_clean = df.dropna(subset=[variable]).copy()
+ 
+# Option B — flag them for inspection instead of dropping
+df["data_missing"] = df[variable].isna()
+print(df["data_missing"].value_counts())
+```
+ 
+Use Option A when you are ready to proceed to analysis. Use Option B while still exploring, so you can understand *why* values are missing (small population suppression, boundary changes, etc.).
 
-They are sometimes used to emphasise particularly important points
-but are also used in some lessons to present "asides": 
-content that is not central to the narrative of the lesson,
-e.g. by providing the answer to a commonly-asked question.
+### Step 4 — Sort the Data
+ 
+Sorting makes it easy to find the highest and lowest values at a glance:
+ 
+```python
+# Top 10 geographic units by your variable
+df_clean.sort_values(variable, ascending=False)[["NAME", "GEOID", variable]].head(10)
+```
+ 
+```python
+# Bottom 10 (useful for spotting zeros or near-zero suppressed values)
+df_clean.sort_values(variable, ascending=True)[["NAME", "GEOID", variable]].head(10)
+```
 
+### Step 5 — Summary Statistics
+ 
+#### Single-variable summary
+ 
+```python
+print(df_clean[variable].describe().round(1))
+```
+
+This gives you count, mean, standard deviation, min, quartiles, and max — a fast sanity check before plotting.
+ 
+#### Grouped by county
+ 
+The first 5 characters of a tract-level `GEOID` are the state+county FIPS code. Use this to roll up tracts to the county level:
+ 
+```python
+df_clean["county_fips"] = df_clean["GEOID"].str[:5]
+ 
+county_summary = (
+    df_clean.groupby("county_fips")[variable]
+    .agg(total="sum", average="mean", median="median", tract_count="count")
+    .round(1)
+    .sort_values("total", ascending=False)
+)
+ 
+print("Top 10 counties:")
+display(county_summary.head(10))
+```
+
+#### Grouped by state
+ 
+If your dataset spans multiple states, compare them side by side:
+ 
+```python
+df_clean["state_fips"] = df_clean["GEOID"].str[:2]
+ 
+state_summary = (
+    df_clean.groupby("state_fips")[variable]
+    .agg(total="sum", average="mean", median="median", tracts="count")
+    .round(1)
+    .sort_values("total", ascending=False)
+)
+ 
+display(state_summary)
+```
+
+::::::::::::::::::::::::::::::::::::: keypoints
+ 
+- Always cast Census columns to numeric before analysis — the API returns everything as strings
+- Replace `-666666666` with `NaN` so pandas treats it as missing data
+- Rename cryptic variable codes to descriptive column names early in your workflow
+- Use `groupby` with `.agg()` to compute multiple statistics at once across geographic units
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Math
+---
+ 
+## Introduction to Data Visualization
+ 
+### What Is Data Visualization?
+ 
+Data visualization is the graphical representation of information. Instead of rows of numbers, it uses charts, maps, and diagrams to make patterns, trends, and outliers immediately understandable. For Census analysis specifically, visualization is what transforms a cleaned DataFrame into insight — showing *where* car-free households cluster, *which* counties are outliers, or *how* income varies across tracts.
+ 
+There are two modes you will use throughout this workshop:
+ 
+- **Exploratory visualization** — quick plots for *your own* understanding while cleaning and analyzing
+- **Explanatory visualization** — polished charts and maps you share with others to communicate findings
 
-One of our episodes contains $\LaTeX$ equations when describing how to create
-dynamic reports with {knitr}, so we now use mathjax to describe this:
 
-`$\alpha = \dfrac{1}{(1 - \beta)^2}$` becomes: $\alpha = \dfrac{1}{(1 - \beta)^2}$
+### Why Visualization Matters for Census Data ?
+ 
+Census datasets can have thousands of rows and dozens of columns. A 1,000-tract DataFrame is impossible to read directly. Visualization addresses this in a few key ways:
+ 
+- A **choropleth map** shows the spatial distribution of an entire state's worth of tract-level data at once
+- A **histogram** reveals whether values are evenly spread or heavily skewed toward a few areas
+- A **bar chart** of top counties immediately answers "where is the problem concentrated?"
+- **Scatter plots** uncover correlations between two variables (e.g., income vs. vehicle access) that summary statistics alone can miss
 
-Cool, right?
+### Advantages and Risks
+ 
+Visualization is powerful, but it can mislead as easily as it informs. Keep both sides in mind:
+ 
+**Advantages:** Spot trends in seconds; reduce cognitive load; reveal outliers and clusters; communicate across technical skill levels; support storytelling with data.
+ 
+**Risks and pitfalls to avoid:**
+- **Truncated axes** — starting a bar chart's y-axis at 500 instead of 0 can make a small difference look enormous
+- **Chartjunk** (Edward Tufte's term) — decorative elements like 3D effects, excessive gridlines, and gradient fills that add visual noise without adding information
+- **Misleading color scales** — a diverging color palette centered at the wrong value distorts spatial patterns
+- **Over-aggregation** — rolling tract-level data all the way up to state averages hides local variation
 
-::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+::::::::::::::::::::::::::::::::::::: callout
+ 
+**Always ask:** Does this visualization show the whole picture, or only the part that supports a predetermined conclusion? Transparency about scale choices, data suppression, and margins of error is essential when sharing Census visualizations.
+ 
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+### Principles of Effective Visualization
+ 
+A few foundational rules, drawing on Edward Tufte, Alberto Cairo, and William Cleveland:
+ 
+1. **Choose the right chart type** — choropleth for spatial distribution, histogram for distribution shape, bar chart for ranking, scatter plot for relationships. Avoid pie charts for more than 4–5 categories.
+2. **Label everything** — title, axis labels, units, and a legend. A chart with no axis labels cannot be interpreted.
+3. **Be honest about scale** — never truncate axes without clearly disclosing it; clip outliers only after explaining why.
+4. **Use colorblind-friendly palettes** — `viridis`, `YlOrRd`, and ColorBrewer palettes are designed to be perceptually uniform and accessible. Avoid raw red/green combinations.
+5. **Remove what is not data** — maximize the ratio of information to ink. Every element should earn its place.
+6. **Add accessibility** — include alt text for published figures; use patterns in addition to color where possible.
+
+### Tools We Use in This Workshop
+ 
+We focus on Python tools that integrate directly with the pandas DataFrames and GeoPandas GeoDataFrames you built in Parts 1–3:
+ 
+| Library | Best For |
+|---|---|
+| **Matplotlib** | Full control over static figures; publication-ready output |
+| **GeoPandas `.plot()`** | Choropleth maps directly from a GeoDataFrame |
+| **Seaborn** | Statistical plots (distributions, correlations) with less code |
+| **Plotly** | Interactive charts and maps for sharing in notebooks or web pages |
+ 
+For non-Python workflows, Tableau Public and QGIS are strong alternatives for Census data — both can accept the shapefiles and CSVs you produce here.
+
+
+## Building the Visualizations (Parts 3 & 4)
+ 
+The hands-on work for this section is in the two Python notebooks:
+ 
+- **`part3_clean_and_analyze.ipynb`** — data cleaning, shapefile join, county ranking, summary statistics
+- **`part4_maps_and_charts.ipynb`** — choropleth maps, bar charts, histogram, and result interpretation
+Open the notebooks in Google Colab (make your own copy to save progress) or run them locally with Jupyter.
+
+::::::::::::::::::::::::::::::::::::: challenge
+
+In Part 4 of the Notebook. Complete the following:
+ 
+1. Run the basic choropleth (Section 4.2) using the default `viridis` colormap
+2. Switch the colormap in Section 4.3 to `Blues` and observe how the interpretation changes
+3. In the bar chart (Section 4.4), change `head(15)` to `head(10)` and add county names instead of FIPS codes by joining with a county name lookup
+4. In the histogram (Section 4.5), describe in one sentence what the shape of the distribution tells you about how your variable is distributed across tracts
+Alternatively, refer to the **Bad and Good Plotting** examples in the `Start Here` module for a comparison of what effective and ineffective Census visualizations look like in practice.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-[r-markdown]: https://rmarkdown.rstudio.com/
+::::::::::::::::::::::::::::::::::::: keypoints
+ 
+- Exploratory plots help you understand your data; explanatory plots help others understand your findings
+- Choropleth maps, histograms, and bar charts each answer a different question about Census data
+- Color scale choices, axis ranges, and aggregation level all affect how a visualization is interpreted
+- Use colorblind-friendly palettes and always label axes, titles, and legends
+- Transparency about data suppression and margins of error is an ethical requirement when publishing Census visualizations
+::::::::::::::::::::::::::::::::::::::::::::::::
