@@ -120,17 +120,6 @@ An API (Application Programming Interface) lets computers request data directly 
 
 This approach is especially useful for research, teaching, and large-scale analysis.
 
-### How This Differs from Geocoding ?
- 
-| Census API Access | Geocoding |
-|---|---|
-| Downloads official census tables | Converts addresses → coordinates |
-| Uses predefined census geographies | Uses external location services |
-| Returns demographic attributes | Returns spatial point locations |
-| Designed for aggregation | Designed for individual locations |
-
-In this lesson, we retrieve **attribute data already organized by census geography** — we do not geocode addresses.
-
 ### Typical Census API Workflow
  
 1. Construct a request URL specifying variables and geography

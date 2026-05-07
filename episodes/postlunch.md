@@ -262,6 +262,20 @@ Visualization is powerful, but it can mislead as easily as it informs. Keep both
 5. **Remove what is not data** — maximize the ratio of information to ink. Every element should earn its place.
 6. **Add accessibility** — include alt text for published figures; use patterns in addition to color where possible.
 
+:::::::::::::::::::::::::::::::::::: challenge
+
+Analyze U.S. Census population data for your assigned state and create a choropleth map
+to visualize population patterns across census tracts. Then, determine the average tract
+population and produce a second map that highlights which tracts fall above and below
+this average
+
+:::::::::::::::::::::::: solution
+
+See the Solution to this Problem <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question2_AnswerKey.ipynb" target="_blank">Here.</a>
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::: challenge
 
 In Part 4 of the Notebook. Complete the following:
@@ -270,7 +284,6 @@ In Part 4 of the Notebook. Complete the following:
 2. Switch the colormap in Section 4.3 to `Blues` and observe how the interpretation changes
 3. In the bar chart (Section 4.4), change `head(15)` to `head(10)` and add county names instead of FIPS codes by joining with a county name lookup
 4. In the histogram (Section 4.5), describe in one sentence what the shape of the distribution tells you about how your variable is distributed across tracts
-Alternatively, refer to the **Bad and Good Plotting** examples in the `Start Here` module for a comparison of what effective and ineffective Census visualizations look like in practice.
 
 Alternatively, refer to the **Bad and Good Plotting** examples in the jupyter module [here](https://spatialturn.github.io/DataVisualization/introduction.html) for a comparison of what effective and ineffective Census visualizations look like in practice.
 
