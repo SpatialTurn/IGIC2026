@@ -246,6 +246,30 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="midlunch.html">2. Acquiring and Exploration of Census Data</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="postlunch.html">3. Census Data Analysis with Python Notebook</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -764,6 +788,956 @@ code matches examples you find online.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
+</div>
+</section></section><section id="aio-midlunch"><p>Content from <a href="midlunch.html">Acquiring and Exploration of Census Data</a></p>
+<hr>
+<p>Last updated on 2026-05-07 |
+
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/midlunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>What kinds of datasets are available from the U.S. Census
+Bureau?</li>
+<li>How can you visualize and analyze these datasets for your region of
+interest?</li>
+<li>How do you combine spatial and tabular Census data?</li>
+<li>What variables are available in the ACS dataset?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Provide an overview of the data available from the U.S. Census
+Bureau</li>
+<li>Explain how to download and visualize spatial data from the Census
+Bureau</li>
+<li>Demonstrate how to query and analyze the spatial data</li>
+<li>Demonstrate how to perform complex spatial joins</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section><h2 class="section-heading" id="introduction-to-census-data">Introduction to Census Data<a class="anchor" aria-label="anchor" href="#introduction-to-census-data"></a>
+</h2>
+<hr class="half-width">
+<div class="section level4">
+<h4 id="the-u-s--census-bureau-provides-three-broad-categories-of-datasets">The U.S. Census Bureau provides three broad categories of
+datasets:<a class="anchor" aria-label="anchor" href="#the-u-s--census-bureau-provides-three-broad-categories-of-datasets"></a>
+</h4>
+<ol style="list-style-type: decimal">
+<li>Census TIGER/Line Shapefiles</li>
+<li>Decennial Census of Population and Housing</li>
+<li>American Community Survey (ACS)</li>
+</ol>
+</div>
+<div class="section level3">
+<h3 id="census-tigerline-shapefiles">Census TIGER/Line Shapefiles<a class="anchor" aria-label="anchor" href="#census-tigerline-shapefiles"></a>
+</h3>
+<p>TIGER (Topologically Integrated Geographic Encoding and Referencing)
+is the Census Bureau’s primary geospatial data product. TIGER/Line
+shapefiles are available from 2007 to the present; earlier data is
+available in ASCII format.</p>
+<p>These shapefiles include all legal boundaries and names for
+geographic units across the United States — <em>states, counties,
+places, ZIP codes, urban areas, census blocks, block groups, and census
+tracts</em>.</p>
+<p>Each record includes a standard <code>GEOID</code> that links
+directly to Census demographic data.</p>
+<figure><img src="censusmapusa.jpg" title="Census USA Map" alt="U.S. Census Bureau TIGER/Line shapefile boundaries for State Regions" class="figure mx-auto d-block"><div class="figcaption"><em>U.S. Census Bureau TIGER/Line shapefile
+boundaries for State Regions</em></div>
+</figure><p>TIGER/Line Shapefiles use American National Standards Institute
+(ANSI) codes to identify geographic entities, including both FIPS
+(Federal Information Processing Series) and GNIS (U.S. Geological Survey
+Geographic Names Information System) codes. For example, the field
+<code>STATEFP</code> contains the state FIPS code, and
+<code>STATENS</code> contains the state GNIS code. County-level FIPS
+codes are five digits: the first two identify the state, and the last
+three identify the county.</p>
+</div>
+<div class="section level3">
+<h3 id="decennial-census-of-population-and-housing">Decennial Census of Population and Housing<a class="anchor" aria-label="anchor" href="#decennial-census-of-population-and-housing"></a>
+</h3>
+<p>Conducted every ten years, the Decennial Census counts every person
+living in the U.S. at a single point in time, providing the most
+complete population data with the smallest margin of error.</p>
+<div class="section level4">
+<h4 id="variables-include">Variables include:<a class="anchor" aria-label="anchor" href="#variables-include"></a>
+</h4>
+<ul>
+<li>
+<strong>Population:</strong> sex, age, race, Hispanic origin, and
+household composition</li>
+<li>
+<strong>Housing:</strong> occupancy, vacancy status, and tenure —
+available at all geographic levels, including the highest resolution
+(census blocks)</li>
+</ul>
+</div>
+</div>
+<div class="section level3">
+<h3 id="american-community-survey-acs">American Community Survey (ACS)<a class="anchor" aria-label="anchor" href="#american-community-survey-acs"></a>
+</h3>
+<p>The ACS is an annual survey that collects information from a sample
+of the population. It covers many topics not included in the Decennial
+Census, such as education, employment, internet access, and
+transportation. Because it is sample-based, ACS estimates carry a higher
+margin of error than Decennial Census counts.</p>
+<div class="section level4">
+<h4 id="the-acs-is-published-in-two-forms">The ACS is published in two forms:<a class="anchor" aria-label="anchor" href="#the-acs-is-published-in-two-forms"></a>
+</h4>
+<ul>
+<li>
+<strong>1-year estimates</strong> — based on 12 months of data;
+available for areas with populations of 65,000+</li>
+<li>
+<strong>5-year estimates</strong> — based on 60 months of data;
+available for all geographies, including small areas</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="variables-include-in-addition-to-standard-demographic-and-housing-data">
+<strong>Variables include</strong> (in addition to standard
+demographic and housing data):<a class="anchor" aria-label="anchor" href="#variables-include-in-addition-to-standard-demographic-and-housing-data"></a>
+</h4>
+<div class="section level5">
+<h5 id="social-characteristics">Social characteristics:<a class="anchor" aria-label="anchor" href="#social-characteristics"></a>
+</h5>
+<ul>
+<li>School enrollment and educational attainment</li>
+<li>Marital status and fertility</li>
+<li>Grandparents as caregivers</li>
+<li>Veteran and disability status</li>
+<li>Language spoken at home</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="economic-characteristics">Economic characteristics:<a class="anchor" aria-label="anchor" href="#economic-characteristics"></a>
+</h5>
+<ul>
+<li>SNAP/Food Stamps participation</li>
+<li>Health insurance coverage</li>
+<li>Income and benefits</li>
+<li>Employment location and commute mode</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="other">Other:<a class="anchor" aria-label="anchor" href="#other"></a>
+</h5>
+<ul>
+<li>Ancestry, citizenship status, place of birth, and year of entry</li>
+</ul>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Census data supports planning services for specific population
+groups</li>
+<li>It can be used for business and facility site selection</li>
+<li>It supports public policy analysis</li>
+<li>It enables spatial analysis of hazard impacts, epidemiological
+models, and more</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="accessing-the-census-data">Accessing the Census Data<a class="anchor" aria-label="anchor" href="#accessing-the-census-data"></a>
+</h2>
+<hr class="half-width">
+<p>Before mapping or analyzing Census data, you need to obtain it. The
+Census Bureau provides several access methods:</p>
+<ul>
+<li>Manual downloads from <a href="https://data.census.gov/" class="external-link">data.census.gov</a>.</li>
+<li>Bulk file downloads</li>
+<li>Programmatic access via the Census API</li>
+</ul>
+<p>This lesson focuses on <strong>API-based access</strong>, which lets
+you retrieve demographic and socioeconomic data directly into Python
+workflows — without clicking through a web interface.</p>
+<div class="section level3">
+<h3 id="what-is-a-census-api-call">What Is a Census API Call?<a class="anchor" aria-label="anchor" href="#what-is-a-census-api-call"></a>
+</h3>
+<p>An API (Application Programming Interface) lets computers request
+data directly from a server using a structured URL. Census APIs return
+machine-readable data (JSON or CSV) that can be processed automatically
+in Python or other tools.</p>
+<div class="section level4">
+<h4 id="using-the-census-api-you-can">Using the Census API, you can:<a class="anchor" aria-label="anchor" href="#using-the-census-api-you-can"></a>
+</h4>
+<ul>
+<li>Specify exactly which variables you want</li>
+<li>Choose the geographic scale (state, county, tract, block group)</li>
+<li>Automate downloads for reproducibility</li>
+<li>Integrate data directly into scripts and analyses</li>
+</ul>
+<p>This approach is especially useful for research, teaching, and
+large-scale analysis.</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="typical-census-api-workflow">Typical Census API Workflow<a class="anchor" aria-label="anchor" href="#typical-census-api-workflow"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Construct a request URL specifying variables and geography</li>
+<li>Send the request to the Census API endpoint</li>
+<li>Receive structured data (JSON or CSV)</li>
+<li>Convert results into a DataFrame</li>
+<li>Optionally join data with geographic boundary files for spatial
+analysis</li>
+</ol>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Note on Privacy</strong></p>
+<p>Census APIs return <strong>aggregate data only</strong>.
+Individual-level records are never provided, ensuring respondent
+privacy.</p>
+</div>
+</div>
+</div>
+<div id="getting-started-with-the-census-notebook" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="getting-started-with-the-census-notebook" class="callout-inner">
+<h3 class="callout-title">Getting Started with the Census Notebook</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook linked below, which
+covers everything on this page hands-on inside Google Colab. More
+Reading on Census API below!</p>
+<p>This part of the session covers:</p>
+<ul>
+<li><p><strong>Part 1: Retrieving the Dataset</strong> - You can refer
+to the theory just below.</p></li>
+<li><p><strong>Part 2: Exploring the Dataset</strong> - Structures,
+variables, columns, geographical units.</p></li>
+</ul>
+<div class="section level3">
+<h3 id="open-the-notebook-in-google-colab-">
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a><a class="anchor" aria-label="anchor" href="#open-the-notebook-in-google-colab-"></a>
+</h3>
+<div class="section level5">
+<h5 id="note-after-completion-do-not-close-the-notebook--keep-it-open-as-we-will-use-it-for-the-next-part-of-the-workshop-">
+<strong>Note:</strong> After Completion, DO NOT close the notebook.
+Keep it open as we will use it for the next part of the workshop.<a class="anchor" aria-label="anchor" href="#note-after-completion-do-not-close-the-notebook--keep-it-open-as-we-will-use-it-for-the-next-part-of-the-workshop-"></a>
+</h5>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+</section><section><h2 class="section-heading" id="tutorial-accessing-acs-data-via-the-census-api">Tutorial: Accessing ACS Data via the Census API<a class="anchor" aria-label="anchor" href="#tutorial-accessing-acs-data-via-the-census-api"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="step-1-explore-the-census-api">Step 1 — Explore the Census API<a class="anchor" aria-label="anchor" href="#step-1-explore-the-census-api"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>Go to the <a href="https://www.census.gov/data/developers.html" class="external-link">Census Developers
+Page</a>.</li>
+<li>Click <strong>Available APIs</strong> (left of the search bar).</li>
+<li>Scroll down and select <strong>American Community Survey
+(ACS)</strong>.</li>
+<li>The ACS offers <strong>1-year</strong> and <strong>5-year</strong>
+estimates. We will use the <strong>2023 ACS 5-Year</strong>, which
+covers data from 2019–2023.</li>
+<li>Scroll to <strong>Data Profiles</strong> and review the “Example
+Call” links — these are the base API URLs you’ll use in Python or a
+browser.</li>
+<li>Under <strong>Data Profiles</strong>, click the <code>html</code>
+link next to <strong>2023 ACS Comparison Profiles Variables</strong> to
+browse all available variable codes.</li>
+</ol>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="step-2-understand-api-links-for-geographic-levels">Step 2 — Understand API Links for Geographic Levels<a class="anchor" aria-label="anchor" href="#step-2-understand-api-links-for-geographic-levels"></a>
+</h3>
+<p>The ACS API uses different URL patterns depending on the geographic
+level you want:</p>
+<ul>
+<li>Country</li>
+<li>State</li>
+<li>Tract (within a state and county) For tract-level data, use the
+<code>state &gt; county &gt; tract</code> pattern. Here is an example
+for <strong>Indiana</strong> (state code <code>18</code>):</li>
+</ul>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;key=YOUR_KEY_GOES_HERE</code></pre>
+<div id="keypoints2" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>
+<code>tract:*</code> returns all tracts in the specified state</li>
+<li>
+<code>county:*</code> returns all counties in the specified
+state</li>
+<li>Replace <code>state:18</code> with your state’s FIPS code (<a href="https://www.census.gov/library/reference/code-lists/ansi.html#state" class="external-link">State
+Codes List</a>)</li>
+<li>
+<code>state:*</code> is <strong>not</strong> allowed for tract-level
+queries due to dataset size limits — you must specify a state</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="step-3-add-variables-to-your-request">Step 3 — Add Variables to Your Request<a class="anchor" aria-label="anchor" href="#step-3-add-variables-to-your-request"></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>On the variables page from Step 1, press <strong>Ctrl+F</strong>
+and search for your variable of interest.<br>
+Example: searching “no vehicles available” returns variable
+<code>DP04_0058E</code> (the estimate version).</p></li>
+<li>
+<p>Add the variable after <code>NAME</code>, separated by a comma:
+<strong>Before:</strong></p>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&amp;for=tract:*&amp;in=state:18&amp;in=county:*</code></pre>
+<p><strong>After:</strong></p>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*</code></pre>
+</li>
+<li>
+<p>Add additional variables by separating them with commas:</p>
+<pre><code>get=NAME,DP04_0058E,DP02_0001E,DP03_0062E</code></pre>
+</li>
+<li><p>Make sure to add the <code>GEO_ID</code> column as well.</p></li>
+</ol>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="step-4-optional-enhancements">Step 4 — Optional Enhancements<a class="anchor" aria-label="anchor" href="#step-4-optional-enhancements"></a>
+</h3>
+<ul>
+<li>
+<strong>View variable descriptions:</strong> Add
+<code>&amp;descriptive=true</code> to your URL</li>
+<li>
+<strong>Download as CSV:</strong> Add
+<code>&amp;outputFormat=csv</code> for a spreadsheet -friendly file</li>
+</ul>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Heads up:</strong> API variable names are
+<strong>case-sensitive</strong> — they must match exactly as listed in
+the variables page.</p>
+</div>
+</div>
+</div>
+<p>📺 <strong>Video Tutorial:</strong> <a href="https://www.youtube.com/watch?v=rqePUEBrcWQ" class="external-link">How to Access ACS
+Data from the Census API</a></p>
+<hr>
+</div>
+<div class="section level3">
+<h3 id="example-final-api-call">Example: Final API Call<a class="anchor" aria-label="anchor" href="#example-final-api-call"></a>
+</h3>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,GEO_ID,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv</code></pre>
+<div class="section level5">
+<h5 id="this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-">This returns the number of occupied households <strong>without a
+vehicle</strong> for every census tract in Indiana.<a class="anchor" aria-label="anchor" href="#this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-"></a>
+</h5>
+<div id="keypoints3" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>The Census API gives you flexible, precise access to ACS data</li>
+<li>You can combine multiple variables in a single API call</li>
+<li>
+<code>&amp;descriptive=true</code> adds plain-language descriptions
+for each variable</li>
+<li>
+<code>&amp;outputFormat=csv</code> makes the data easy to open in
+Excel or import into Python</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
+</div>
+</section></section><section id="aio-postlunch"><p>Content from <a href="postlunch.html">Census Data Analysis with Python Notebook</a></p>
+<hr>
+<p>Last updated on 2026-05-07 |
+
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/postlunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do you clean and prepare raw Census data for analysis?</li>
+<li>How do you rename columns, sort data, and compute summary
+statistics?</li>
+<li>What is data visualization and why does it matter for Census
+analysis?</li>
+<li>What makes a visualization effective versus misleading?</li>
+<li>Which Python tools are best for creating publication-ready
+plots?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Clean a Census DataFrame: handle placeholder values, cast data
+types, and rename columns</li>
+<li>Sort and filter data to identify top geographic units</li>
+<li>Compute grouped summary statistics at the county and state
+level</li>
+<li>Define data visualization and explain its role in Census data
+analysis</li>
+<li>Recognize the principles of effective visualization design</li>
+<li>Identify common pitfalls (misleading charts, chartjunk,
+accessibility barriers)</li>
+<li>Use Python (Matplotlib, GeoPandas) to create choropleth maps, bar
+charts, and histograms</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<section><h2 class="section-heading" id="importance-of-data-cleaning">Importance of Data Cleaning<a class="anchor" aria-label="anchor" href="#importance-of-data-cleaning"></a>
+</h2>
+<hr class="half-width">
+<p>Real-world data is messy. Before any analysis or visualization can
+happen, the data needs to be trustworthy — and that requires
+cleaning.</p>
+<p>For Census data specifically, three problems show up almost every
+time:</p>
+<ul>
+<li>
+<strong>Hidden missing values</strong> - <code>-666666666</code>
+looks like a real number but means “no data.” Left uncaught, it silently
+corrupts averages and maps</li>
+<li>
+<strong>Wrong data types</strong> - the Census API returns
+everything as strings. Math on strings fails in Python</li>
+<li>
+<strong>Unreadable column names</strong> - <code>DP04_0058E</code>
+tells you nothing when looking at it first time, making it easy to mix
+up variables and hard for collaborators to follow your work</li>
+</ul>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Data scientists typically spend <strong>60–80% of project
+time</strong> on data preparation — not analysis. The good news: for
+Census data, the cleaning steps are predictable and learnable.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="cleaning-the-census-dataset">Cleaning the Census Dataset<a class="anchor" aria-label="anchor" href="#cleaning-the-census-dataset"></a>
+</h2>
+<hr class="half-width">
+<p>After downloading ACS data via the Census API (see the previous
+lesson), the raw DataFrame needs several cleaning steps before it is
+ready for analysis or visualization. This section walks through each
+step using the file you saved in Part 1.</p>
+<div class="section level3">
+<h3 id="what-we-are-working-with">What We Are Working With ?<a class="anchor" aria-label="anchor" href="#what-we-are-working-with"></a>
+</h3>
+<p>Jump to <strong>Part 3</strong> of the notebook. The data was
+downloaded as a CSV from the Census API and loaded into a pandas
+DataFrame. At this stage it has some rough edges:</p>
+<ul>
+<li>Every column is stored as a <strong>string</strong> — even numeric
+estimates like population counts</li>
+<li>Missing or suppressed values are encoded as
+<strong><code>-666666666</code></strong> (a Census Bureau placeholder),
+not <code>NaN</code>
+</li>
+<li>Column names are raw variable codes like <code>DP04_0058E</code>,
+which are hard to read</li>
+<li>The dataset may have rows that should be excluded from analysis</li>
+</ul>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout-inner">
+<h3 class="callout-title">
+<strong>Prerequisites</strong>- Completion of
+Part 1 and 2 of the Notebook.</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook Part <code>3</code> and
+<code>4</code> linked below, which covers everything on this page
+hands-on inside Google Colab. More explanation on the process of data
+cleaning explained below!</p>
+<p>The hands-on work for this section:</p>
+<ul>
+<li>
+<strong>Part 3: Data Cleaning</strong> - null value removal,
+shapefile join, county ranking, summary statistics</li>
+<li>
+<strong>Part 4: Visual Maps</strong> - Bar charts, histogram,
+choropleth maps, and result interpretation</li>
+</ul>
+<div class="section level3">
+<h3 id="open-the-notebook-in-google-colab-">
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a><a class="anchor" aria-label="anchor" href="#open-the-notebook-in-google-colab-"></a>
+</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-1-cast-estimate-columns-to-numbers">Step 1 — Cast Estimate Columns to Numbers<a class="anchor" aria-label="anchor" href="#step-1-cast-estimate-columns-to-numbers"></a>
+</h3>
+<p>The Census API returns all values as strings. Before doing any math,
+convert estimate columns (those ending in <code>E</code>) to
+numeric:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>CENSUS_NULL <span class="op">=</span> <span class="op">-</span><span class="dv">666666666</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a> </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>estimate_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> c.endswith(<span class="st">"E"</span>) <span class="kw">and</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="st">"NAME"</span>, <span class="st">"GEO_ID"</span>, <span class="st">"GEOID"</span>)]</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a> </span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a><span class="cf">for</span> col <span class="kw">in</span> estimate_cols:</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a>    df[col] <span class="op">=</span> pd.to_numeric(df[col], errors<span class="op">=</span><span class="st">"coerce"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1" aria-label="code-block-1-7"></a>    df[col] <span class="op">=</span> df[col].replace(CENSUS_NULL, pd.NA)</span></code></pre>
+</div>
+<p><code>errors="coerce"</code> turns anything that cannot be parsed
+(e.g., <code>"N"</code> for not applicable) into <code>NaN</code>
+automatically. The <code>.replace()</code> call then converts the
+<code>-666666666</code> placeholders to <code>NaN</code> as well, so
+both types of missing data are handled consistently.</p>
+</div>
+<div class="section level3">
+<h3 id="step-2-rename-columns-to-human-readable-labels">Step 2 — Rename Columns to Human-Readable Labels<a class="anchor" aria-label="anchor" href="#step-2-rename-columns-to-human-readable-labels"></a>
+</h3>
+<p>Raw ACS codes are hard to work with. Create a rename dictionary for
+the variables you downloaded:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>rename_map <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    <span class="st">"DP04_0058E"</span>: <span class="st">"no_vehicle_households"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    <span class="st">"DP03_0062E"</span>: <span class="st">"median_household_income"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>    <span class="st">"DP02_0001E"</span>: <span class="st">"total_households"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    <span class="co"># add more as needed</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a> </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>df.rename(columns<span class="op">=</span>rename_map, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre>
+</div>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Tip:</strong> Keep a separate reference dictionary that maps
+the new names back to the original ACS codes and their full
+descriptions. This makes your work reproducible and easier to
+document.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>variable_reference <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>    <span class="st">"no_vehicle_households"</span>: (<span class="st">"DP04_0058E"</span>, <span class="st">"Occupied housing units with no vehicle available"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    <span class="st">"median_household_income"</span>: (<span class="st">"DP03_0062E"</span>, <span class="st">"Median household income in the past 12 months"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-3-drop-or-flag-rows-with-missing-data">Step 3 — Drop or Flag Rows with Missing Data<a class="anchor" aria-label="anchor" href="#step-3-drop-or-flag-rows-with-missing-data"></a>
+</h3>
+<p>Decide how to handle rows where your key variable is
+<code>NaN</code>:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>variable <span class="op">=</span> <span class="st">"no_vehicle_households"</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a> </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="co"># Option A — drop rows missing the key variable entirely</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[variable]).copy()</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a> </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a><span class="co"># Option B — flag them for inspection instead of dropping</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>df[<span class="st">"data_missing"</span>] <span class="op">=</span> df[variable].isna()</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a><span class="bu">print</span>(df[<span class="st">"data_missing"</span>].value_counts())</span></code></pre>
+</div>
+<p>Use Option A when you are ready to proceed to analysis. Use Option B
+while still exploring, so you can understand <em>why</em> values are
+missing (small population suppression, boundary changes, etc.).</p>
+</div>
+<div class="section level3">
+<h3 id="step-4-sort-the-data">Step 4 — Sort the Data<a class="anchor" aria-label="anchor" href="#step-4-sort-the-data"></a>
+</h3>
+<p>Sorting makes it easy to find the highest and lowest values at a
+glance:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="co"># Top 10 geographic units by your variable</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>df_clean.sort_values(variable, ascending<span class="op">=</span><span class="va">False</span>)[[<span class="st">"NAME"</span>, <span class="st">"GEOID"</span>, variable]].head(<span class="dv">10</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="co"># Bottom 10 (useful for spotting zeros or near-zero suppressed values)</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>df_clean.sort_values(variable, ascending<span class="op">=</span><span class="va">True</span>)[[<span class="st">"NAME"</span>, <span class="st">"GEOID"</span>, variable]].head(<span class="dv">10</span>)</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-5-summary-statistics">Step 5 — Summary Statistics<a class="anchor" aria-label="anchor" href="#step-5-summary-statistics"></a>
+</h3>
+<div class="section level4">
+<h4 id="single-variable-summary">Single-variable summary<a class="anchor" aria-label="anchor" href="#single-variable-summary"></a>
+</h4>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="bu">print</span>(df_clean[variable].describe().<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre>
+</div>
+<p>This gives you count, mean, standard deviation, min, quartiles, and
+max — a fast sanity check before plotting.</p>
+</div>
+<div class="section level4">
+<h4 id="grouped-by-county">Grouped by county<a class="anchor" aria-label="anchor" href="#grouped-by-county"></a>
+</h4>
+<p>The first 5 characters of a tract-level <code>GEOID</code> are the
+state+county FIPS code. Use this to roll up tracts to the county
+level:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>df_clean[<span class="st">"county_fips"</span>] <span class="op">=</span> df_clean[<span class="st">"GEOID"</span>].<span class="bu">str</span>[:<span class="dv">5</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a> </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>county_summary <span class="op">=</span> (</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a>    df_clean.groupby(<span class="st">"county_fips"</span>)[variable]</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>    .agg(total<span class="op">=</span><span class="st">"sum"</span>, average<span class="op">=</span><span class="st">"mean"</span>, median<span class="op">=</span><span class="st">"median"</span>, tract_count<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a>    .<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>    .sort_values(<span class="st">"total"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a> </span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a><span class="bu">print</span>(<span class="st">"Top 10 counties:"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a>display(county_summary.head(<span class="dv">10</span>))</span></code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="grouped-by-state">Grouped by state<a class="anchor" aria-label="anchor" href="#grouped-by-state"></a>
+</h4>
+<p>If your dataset spans multiple states, compare them side by side:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>df_clean[<span class="st">"state_fips"</span>] <span class="op">=</span> df_clean[<span class="st">"GEOID"</span>].<span class="bu">str</span>[:<span class="dv">2</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>state_summary <span class="op">=</span> (</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a>    df_clean.groupby(<span class="st">"state_fips"</span>)[variable]</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1" aria-label="code-block-9-5"></a>    .agg(total<span class="op">=</span><span class="st">"sum"</span>, average<span class="op">=</span><span class="st">"mean"</span>, median<span class="op">=</span><span class="st">"median"</span>, tracts<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1" aria-label="code-block-9-6"></a>    .<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1" aria-label="code-block-9-7"></a>    .sort_values(<span class="st">"total"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1" aria-label="code-block-9-8"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1" aria-label="code-block-9-9"></a> </span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1" aria-label="code-block-9-10"></a>display(state_summary)</span></code></pre>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Always cast Census columns to numeric before analysis — the API
+returns everything as strings</li>
+<li>Replace <code>-666666666</code> with <code>NaN</code> so pandas
+treats it as missing data</li>
+<li>Rename cryptic variable codes to descriptive column names early in
+your workflow</li>
+<li>Use <code>groupby</code> with <code>.agg()</code> to compute
+multiple statistics at once across geographic units</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="introduction-to-data-visualization">Introduction to Data Visualization<a class="anchor" aria-label="anchor" href="#introduction-to-data-visualization"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="what-is-data-visualization">What Is Data Visualization?<a class="anchor" aria-label="anchor" href="#what-is-data-visualization"></a>
+</h3>
+<p>Data visualization is the graphical representation of information.
+Instead of rows of numbers, it uses charts, maps, and diagrams to make
+patterns, trends, and outliers immediately understandable. For Census
+analysis specifically, visualization is what transforms a cleaned
+DataFrame into insight — showing <em>where</em> car-free households
+cluster, <em>which</em> counties are outliers, or <em>how</em> income
+varies across tracts.</p>
+<p>There are two modes you will use throughout this workshop:</p>
+<ul>
+<li>
+<strong>Exploratory visualization</strong> — quick plots for
+<em>your own</em> understanding while cleaning and analyzing</li>
+<li>
+<strong>Explanatory visualization</strong> — polished charts and
+maps you share with others to communicate findings</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="why-visualization-matters-for-census-data">Why Visualization Matters for Census Data ?<a class="anchor" aria-label="anchor" href="#why-visualization-matters-for-census-data"></a>
+</h3>
+<p>Census datasets can have thousands of rows and dozens of columns. A
+1,000-tract DataFrame is impossible to read directly. Visualization
+addresses this in a few key ways:</p>
+<ul>
+<li>A <strong>choropleth map</strong> shows the spatial distribution of
+an entire state’s worth of tract-level data at once</li>
+<li>A <strong>histogram</strong> reveals whether values are evenly
+spread or heavily skewed toward a few areas</li>
+<li>A <strong>bar chart</strong> of top counties immediately answers
+“where is the problem concentrated?”</li>
+<li>
+<strong>Scatter plots</strong> uncover correlations between two
+variables (e.g., income vs. vehicle access) that summary statistics
+alone can miss</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="advantages-and-risks">Advantages and Risks<a class="anchor" aria-label="anchor" href="#advantages-and-risks"></a>
+</h3>
+<p>Visualization is powerful, but it can mislead as easily as it
+informs. Keep both sides in mind:</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Spot trends in seconds</li>
+<li>Reduce cognitive load</li>
+<li>Reveal outliers and clusters</li>
+<li>Communicate across technical skill levels</li>
+<li>Support storytelling with data</li>
+</ul>
+<p><strong>Stuff to Avoid:</strong></p>
+<ul>
+<li>
+<strong>Truncated axes</strong> — starting a bar chart’s y-axis at
+500 instead of 0 can make a small difference look enormous</li>
+<li>
+<strong>Chartjunk</strong> — decorative elements like 3D effects,
+excessive gridlines, and gradient fills that add visual noise without
+adding information</li>
+<li>
+<strong>Misleading color scales</strong> — a diverging color palette
+centered at the wrong value distorts spatial patterns</li>
+<li>
+<strong>Over-aggregation</strong> — rolling tract-level data all the
+way up to state averages hides local variation</li>
+</ul>
+<div id="callout3" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Always ask:</strong> Does this visualization show the whole
+picture, or only the part that supports a predetermined conclusion?
+Transparency about scale choices, data suppression, and margins of error
+is essential when sharing Census visualizations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="principles-of-effective-visualization">Principles of Effective Visualization<a class="anchor" aria-label="anchor" href="#principles-of-effective-visualization"></a>
+</h3>
+<div class="section level6">
+<h6 id="foundational-rules">
+<strong>Foundational Rules:</strong><a class="anchor" aria-label="anchor" href="#foundational-rules"></a>
+</h6>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Choose the right chart type</strong> — choropleth for
+spatial distribution, histogram for distribution shape, bar chart for
+ranking, scatter plot for relationships. Avoid pie charts for more than
+4–5 categories.</li>
+<li>
+<strong>Label everything</strong> — title, axis labels, units, and a
+legend. A chart with no axis labels cannot be interpreted.</li>
+<li>
+<strong>Be honest about scale</strong> — never truncate axes without
+clearly disclosing it; clip outliers only after explaining why.</li>
+<li>
+<strong>Use colorblind-friendly palettes</strong> —
+<code>viridis</code>, <code>YlOrRd</code>, and ColorBrewer palettes are
+designed to be perceptually uniform and accessible. Avoid raw red/green
+combinations.</li>
+<li>
+<strong>Remove what is not data</strong> — maximize the ratio of
+information to ink. Every element should earn its place.</li>
+<li>
+<strong>Add accessibility</strong> — include alt text for published
+figures; use patterns in addition to color where possible.</li>
+</ol>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Analyze U.S. Census population data for your assigned state and
+create a choropleth map to visualize population patterns across census
+tracts. Then, determine the average tract population and produce a
+second map that highlights which tracts fall above and below this
+average</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>See the Solution to this Problem
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question2_AnswerKey.ipynb" target="_blank" class="external-link">Here.</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>In Part 4 of the Notebook. Complete the following:</p>
+<ol style="list-style-type: decimal">
+<li>Run the basic choropleth (Section 4.2) using the default
+<code>viridis</code> colormap</li>
+<li>Switch the colormap in Section 4.3 to <code>Blues</code> and observe
+how the interpretation changes</li>
+<li>In the bar chart (Section 4.4), change <code>head(15)</code> to
+<code>head(10)</code> and add county names instead of FIPS codes by
+joining with a county name lookup</li>
+<li>In the histogram (Section 4.5), describe in one sentence what the
+shape of the distribution tells you about how your variable is
+distributed across tracts</li>
+</ol>
+<p>Alternatively, refer to the <strong>Bad and Good Plotting</strong>
+examples in the jupyter module <a href="https://spatialturn.github.io/DataVisualization/introduction.html" class="external-link">here</a>
+for a comparison of what effective and ineffective Census visualizations
+look like in practice.</p>
+</div>
+</div>
+</div>
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>For non-Python workflows, <strong>QGIS</strong> is a strong
+alternative for Census data as it can accept the shapefiles and CSVs you
+produce here. Check QGIS module <a href="https://spatialturn.github.io/DataVisualization/" class="external-link">Here</a>.</p>
+</div>
+</div>
+</div>
+<div id="keypoints2" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Exploratory plots help you understand your data; explanatory plots
+help others understand your findings</li>
+<li>Choropleth maps, histograms, and bar charts each answer a different
+question about Census data</li>
+<li>Color scale choices, axis ranges, and aggregation level all affect
+how a visualization is interpreted</li>
+<li>Use colorblind-friendly palettes and always label axes, titles, and
+legends</li>
+<li>Transparency about data suppression and margins of error is an
+ethical requirement when publishing Census visualizations</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
 </div>
 </section></section>
 </div>

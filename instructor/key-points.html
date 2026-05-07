@@ -247,6 +247,30 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush3">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading3">
+        <a href="midlunch.html">2. Acquiring and Exploration of Census Data</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="postlunch.html">3. Census Data Analysis with Python Notebook</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -316,6 +340,60 @@ extend Python’s capabilities.</li>
 <li>The standard aliases (<code>np</code>, <code>pd</code>,
 <code>plt</code>, <code>gpd</code>) are conventions, use them so your
 code matches examples you find online.</li>
+</ul></section><section id="midlunch"><h2 class="section-heading"><a href="midlunch.html">Acquiring and Exploration of Census Data</a></h2>
+<hr class="half-width">
+<ul>
+<li>Census data supports planning services for specific population
+groups</li>
+<li>It can be used for business and facility site selection</li>
+<li>It supports public policy analysis</li>
+<li>It enables spatial analysis of hazard impacts, epidemiological
+models, and more</li>
+</ul>
+<ul>
+<li>
+<code>tract:*</code> returns all tracts in the specified state</li>
+<li>
+<code>county:*</code> returns all counties in the specified
+state</li>
+<li>Replace <code>state:18</code> with your state’s FIPS code (<a href="https://www.census.gov/library/reference/code-lists/ansi.html#state" class="external-link">State
+Codes List</a>)</li>
+<li>
+<code>state:*</code> is <strong>not</strong> allowed for tract-level
+queries due to dataset size limits — you must specify a state</li>
+</ul>
+<ul>
+<li>The Census API gives you flexible, precise access to ACS data</li>
+<li>You can combine multiple variables in a single API call</li>
+<li>
+<code>&amp;descriptive=true</code> adds plain-language descriptions
+for each variable</li>
+<li>
+<code>&amp;outputFormat=csv</code> makes the data easy to open in
+Excel or import into Python</li>
+</ul></section><section id="postlunch"><h2 class="section-heading"><a href="postlunch.html">Census Data Analysis with Python Notebook</a></h2>
+<hr class="half-width">
+<ul>
+<li>Always cast Census columns to numeric before analysis — the API
+returns everything as strings</li>
+<li>Replace <code>-666666666</code> with <code>NaN</code> so pandas
+treats it as missing data</li>
+<li>Rename cryptic variable codes to descriptive column names early in
+your workflow</li>
+<li>Use <code>groupby</code> with <code>.agg()</code> to compute
+multiple statistics at once across geographic units</li>
+</ul>
+<ul>
+<li>Exploratory plots help you understand your data; explanatory plots
+help others understand your findings</li>
+<li>Choropleth maps, histograms, and bar charts each answer a different
+question about Census data</li>
+<li>Color scale choices, axis ranges, and aggregation level all affect
+how a visualization is interpreted</li>
+<li>Use colorblind-friendly palettes and always label axes, titles, and
+legends</li>
+<li>Transparency about data suppression and margins of error is an
+ethical requirement when publishing Census visualizations</li>
 </ul></section>
 </div>
     </main>
