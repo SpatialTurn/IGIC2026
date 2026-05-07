@@ -116,7 +116,7 @@ You can use Jupyter Notebooks in several ways, one such way is:
 
 :::::::::::::::::::::::::::::::::::::::::: challenge
 
-##### Get Started with the Notebook
+### Get Started with the Notebook
 
 Work through the interactive Python notebook linked below, which covers everything on this page hands-on inside Google Colab.
 
@@ -126,7 +126,7 @@ Scroll down to find additional reading on python libraries and most commonly use
 
 **Already comfortable with the basics?** Jump straight to cell 13 to explore NumPy, pandas, Matplotlib, and GeoPandas in action. 
 
-<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/intro_python.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
+### <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/intro_python.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
