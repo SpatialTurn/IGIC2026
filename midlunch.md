@@ -225,7 +225,8 @@ https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:
    get=NAME,DP04_0058E,DP02_0001E,DP03_0062E
    ```
 
-4. MAKE SURE to add the `GEO_ID` column as well!
+4. Make sure to add the `GEO_ID` column as well.
+
 ---
  
 ### Step 4 — Optional Enhancements
