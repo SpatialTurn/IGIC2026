@@ -604,7 +604,9 @@ Example: searching “no vehicles available” returns variable
 <p>Add additional variables by separating them with commas:</p>
 <pre><code>get=NAME,DP04_0058E,DP02_0001E,DP03_0062E</code></pre>
 </li>
-</ol><hr></div>
+<li><h2 id="make-sure-to-add-the-geo_id-column-as-well">MAKE SURE to add
+the <code>GEO_ID</code> column as well!</h2></li>
+</ol></div>
 <div class="section level3">
 <h3 id="step-4-optional-enhancements">Step 4 — Optional Enhancements<a class="anchor" aria-label="anchor" href="#step-4-optional-enhancements"></a></h3>
 <ul><li>
@@ -631,7 +633,7 @@ Data from the Census API</a></p>
 <hr></div>
 <div class="section level3">
 <h3 id="example-final-api-call">Example: Final API Call<a class="anchor" aria-label="anchor" href="#example-final-api-call"></a></h3>
-<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv</code></pre>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,GEO_ID,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv</code></pre>
 <div class="section level5">
 <h5 id="this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-">This returns the number of occupied households <strong>without a
 vehicle</strong> for every census tract in Indiana.<a class="anchor" aria-label="anchor" href="#this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-"></a></h5>
