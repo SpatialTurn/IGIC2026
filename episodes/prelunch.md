@@ -124,17 +124,43 @@ Work through the interactive Python notebook linked below, which covers everythi
 
 Scroll down to find additional reading on python libraries and most commonly used libraries in Data Science.
 
-**Already comfortable with the basics?** Jump straight to cell 13 to explore NumPy, pandas, Matplotlib, and GeoPandas in action. 
+**Already comfortable with the basics?** Jump straight to cell `13` to explore NumPy, pandas, Matplotlib, and GeoPandas in action. 
 
 ### <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/intro_python.ipynb" target="_blank">Open the Notebook in Google Colab.</a>
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-**Note**: To SAVE your changes made, make sure to Save a copy of the notebook in your Drive! 
+**Note**: To SAVE your changes made, make sure to Save a copy of the above notebook in your Drive! 
 
 ![](savecopy.png "Your Notebook")
 
+:::::::::::::::::::::::::::::::::::: challenge
+
+You are provided with information on 10 U.S. cities, including their geographic
+coordinates, population, and region.
+Design and implement an appropriate python data structure to represent the data and
+visualize it using a map where the population is represented by symbol size.
+
+| City | Latitude | Longitude | Population |
+|---|---|---|---|
+| New York | 40.7128 | -74.0060 | 8,419,600 |
+| Los Angeles | 34.0522 | -118.2437 | 3,980,400 |
+| Chicago | 41.8781 | -87.6298  | 2,716,000 |
+| Houston | 29.7604 | -95.3698  | 2,328,000 |
+| Phoenix | 33.4484 | -112.0740 | 1,690,000 |
+| Philadelphia | 39.9526 | -75.1652 | 1,584,200 |
+| San Antonio | 29.4241 | -98.4936 | 1,547,200 |
+| San Diego | 32.7157  | -117.1611| 1,423,800 |
+| Dallas | 32.7767  | -96.7970  | 1,341,000 |
+| San Jose | 37.3382 | -121.8863 | 1,035,500 |
+
+:::::::::::::::::::::::: solution
+
+See the Solution to this Problem <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question1_AnswerKey.ipynb" target="_blank">Here.</a>
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## 4. What is a Python Library?
 
