@@ -29,8 +29,6 @@ Designed for beginners, the session emphasizes hands-on learning and guides part
 
 ## Setup Requirements
 
-To participate in this workshop, you will need:
-
 We offer **two setup paths**:
 
 1. **Google Colab** — recommended for beginners; no installation needed
@@ -47,7 +45,7 @@ Google Colab is a free, cloud-based Jupyter notebook environment hosted by Googl
 1. Go to <https://colab.research.google.com>
 2. Sign in with your Google account (or create one if needed).
 3. Click **New notebook** (or **File → New notebook**).
-4. *(Optional)* Rename it: **File → Rename** (e.g., `Data Viz Workshop – YourName`).
+4. *(Optional)* Rename it: **File → Rename** (e.g., `Test_Notebook – YourName`).
 5. Test the libraries by running this in the first cell (`Shift+Enter` to execute):
 
 ```python
@@ -120,10 +118,8 @@ Use this option if you prefer working offline or need a persistent local environ
 |---------|-----|
 | **Colab:** plots not showing | Add `%matplotlib inline` at the top of the notebook (usually automatic) |
 | **Local:** `ModuleNotFoundError` | Run `!pip install <package-name>` in a code cell |
-| **General help** | Raise your hand during the workshop, or check the [Carpentries Python setup guide](https://swcarpentry.github.io/python-novice-gapminder/setup.html) |
+| **General help** | Raise your hand during the workshop |
 
 ---
 
-You're all set! Proceed to **Introduction to Data Visualization** or **Creating Your First Plots**.
-
-*Happy visualizing!*
+### You're all set! Proceed to **[Python Notebook Introduction](https://spatialturn.github.io/IGIC2026/prelunch.html)** to start coding in Python. 
