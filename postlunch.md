@@ -33,7 +33,7 @@ Real-world data is messy. Before any analysis or visualization can happen, the d
 
 For Census data specifically, three problems show up almost every time:
 
-- **Hidden missing values** - `-666666666` looks like a real number but means "no data." Left uncaught, it silently corrupts averages and maps
+- **Hidden missing values** - `NaN` means "no data" or null value. Left uncaught, it silently disrupts visualization
 - **Wrong data types** -  the Census API returns everything as strings. Math on strings fails in Python
 - **Unreadable column names** - `DP04_0058E` tells you nothing when looking at it first time, making it easy to mix up variables and hard for collaborators to follow your work
 
@@ -52,8 +52,8 @@ After downloading ACS data via the Census API (see the previous lesson), the raw
 Jump to **Part 3** of the notebook. The data was downloaded as a CSV from the Census API and loaded into a pandas DataFrame. At this stage it has some rough edges:
 
 - Every column is stored as a **string** — even numeric estimates like population counts
-- Missing or suppressed values are encoded as **`-666666666`** (a Census Bureau placeholder), not `NaN`
-- Column names are raw variable codes like `DP04_0058E`, which are hard to read
+- Missing or suppressed values such as `NaN`
+- Column names are raw variable codes like `DP04_0058E`, which are hard to read (optional)
 - The dataset may have rows that should be excluded from analysis
 
 
@@ -78,15 +78,13 @@ The hands-on work for this section:
 The Census API returns all values as strings. Before doing any math, convert estimate columns (those ending in `E`) to numeric:
  
 ```python
-CENSUS_NULL = -666666666
  
-estimate_cols = [c for c in df.columns if c.endswith("E") and c not in ("NAME", "GEO_ID", "GEOID")]
+estimate_cols = [c for c in df.columns if c.endswith("E") and c not in ("NAME", "GEO_ID", "GEOID")] # excluding these columns
  
 for col in estimate_cols:
     df[col] = pd.to_numeric(df[col], errors="coerce")
-    df[col] = df[col].replace(CENSUS_NULL, pd.NA)
 ```
-`errors="coerce"` turns anything that cannot be parsed (e.g., `"N"` for not applicable) into `NaN` automatically. The `.replace()` call then converts the `-666666666` placeholders to `NaN` as well, so both types of missing data are handled consistently.
+`errors="coerce"` turns anything that cannot be parsed (e.g., `"N"` for not applicable) into `NaN` automatically.
 
 
 ### Step 2 — Rename Columns to Human-Readable Labels
@@ -196,7 +194,7 @@ display(state_summary)
 ::::::::::::::::::::::::::::::::::::: keypoints
  
 - Always cast Census columns to numeric before analysis — the API returns everything as strings
-- Replace `-666666666` with `NaN` so pandas treats it as missing data
+- Always check for missing data (`NaN`) to avoid visualization problems later on
 - Rename cryptic variable codes to descriptive column names early in your workflow
 - Use `groupby` with `.agg()` to compute multiple statistics at once across geographic units
 ::::::::::::::::::::::::::::::::::::::::::::::::
