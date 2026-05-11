@@ -376,8 +376,8 @@ Excel or import into Python</li>
 <ul>
 <li>Always cast Census columns to numeric before analysis — the API
 returns everything as strings</li>
-<li>Replace <code>-666666666</code> with <code>NaN</code> so pandas
-treats it as missing data</li>
+<li>Always check for missing data (<code>NaN</code>) to avoid
+visualization problems later on</li>
 <li>Rename cryptic variable codes to descriptive column names early in
 your workflow</li>
 <li>Use <code>groupby</code> with <code>.agg()</code> to compute
