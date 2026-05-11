@@ -52,12 +52,10 @@ Google Colab is a free, cloud-based Jupyter notebook environment hosted by Googl
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import plotly.express as px   # optional – usually pre-installed
 
 print("pandas version:", pd.__version__)
 print("matplotlib version:", plt.matplotlib.__version__)
 print("seaborn version:", sns.__version__)
-print("plotly version:", px.__version__ if 'px' in globals() else "not imported")
 
 ## Quick test plot (should appear inline)
 tips = sns.load_dataset("tips")   # built-in Seaborn dataset
