@@ -259,6 +259,18 @@
 </div>
 <!--/div.accordion-flush-->
 
+<div class="accordion accordion-flush" id="accordionFlush4">
+  <div class="accordion-item">
+    <div class="accordion-header" id="flush-heading4">
+        <a href="postlunch.html">3. Census Data Analysis with Python Notebook</a>
+    </div>
+<!--/div.accordion-header-->
+
+  </div>
+<!--/div.accordion-item-->
+</div>
+<!--/div.accordion-flush-->
+
                 </div>
               </div>
             </div>
@@ -595,7 +607,7 @@ using a map where the population is represented by symbol size.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>See the Solution to this Problem
 <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question1_AnswerKey.ipynb" target="_blank" class="external-link">Here.</a></p>
@@ -1184,6 +1196,538 @@ for each variable</li>
 <li>
 <code>&amp;outputFormat=csv</code> makes the data easy to open in
 Excel or import into Python</li>
+</ul>
+</div>
+</div>
+</div>
+<!--
+Place links that you need to refer to multiple times across pages here. Delete
+any links that you are not going to use.
+ -->
+</div>
+</div>
+</section></section><section id="aio-postlunch"><p>Content from <a href="postlunch.html">Census Data Analysis with Python Notebook</a></p>
+<hr>
+<p>Last updated on 2026-05-12 |
+
+        <a href="https://github.com/carpentries/workbench-template-md/edit/main/episodes/postlunch.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
+<p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 240 minutes</p>
+<div class="text-end">
+          <button role="button" aria-pressed="false" tabindex="0" id="expand-code" class="pull-right" data-expand="Expand All Solutions " data-collapse="Collapse All Solutions "> Expand All Solutions <i aria-hidden="true" data-feather="plus"></i></button>
+        </div>
+<div class="overview card">
+<h2 class="card-header">Overview</h2>
+<div class="row g-0">
+<div class="col-md-4">
+<div class="card-body">
+<div class="inner">
+<h3 class="card-title">Questions</h3>
+<ul>
+<li>How do you clean and prepare raw Census data for analysis?</li>
+<li>How do you rename columns, sort data, and compute summary
+statistics?</li>
+<li>What is data visualization and why does it matter for Census
+analysis?</li>
+<li>What makes a visualization effective versus misleading?</li>
+<li>Which Python tools are best for creating publication-ready
+plots?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-md-8">
+<div class="card-body">
+<div class="inner bordered">
+<h3 class="card-title">Objectives</h3>
+<ul>
+<li>Clean a Census DataFrame: handle placeholder values, cast data
+types, and rename columns</li>
+<li>Sort and filter data to identify top geographic units</li>
+<li>Compute grouped summary statistics at the county and state
+level</li>
+<li>Define data visualization and explain its role in Census data
+analysis</li>
+<li>Recognize the principles of effective visualization design</li>
+<li>Identify common pitfalls (misleading charts, chartjunk,
+accessibility barriers)</li>
+<li>Use Python (Matplotlib, GeoPandas) to create choropleth maps, bar
+charts, and histograms</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<section><h2 class="section-heading" id="importance-of-data-cleaning">Importance of Data Cleaning<a class="anchor" aria-label="anchor" href="#importance-of-data-cleaning"></a>
+</h2>
+<hr class="half-width">
+<p>Real-world data is messy. Before any analysis or visualization can
+happen, the data needs to be trustworthy — and that requires
+cleaning.</p>
+<p>For Census data specifically, three problems show up almost every
+time:</p>
+<ul>
+<li>
+<strong>Hidden missing values</strong> - <code>NaN</code> means “no
+data” or null value. Left uncaught, it silently disrupts
+visualization</li>
+<li>
+<strong>Wrong data types</strong> - the Census API returns
+everything as strings. Math on strings fails in Python</li>
+<li>
+<strong>Unreadable column names</strong> - <code>DP04_0058E</code>
+tells you nothing when looking at it first time, making it easy to mix
+up variables and hard for collaborators to follow your work</li>
+</ul>
+<div id="callout1" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>Data scientists typically spend <strong>60–80% of project
+time</strong> on data preparation — not analysis. The good news: for
+Census data, the cleaning steps are predictable and learnable.</p>
+</div>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="cleaning-the-census-dataset">Cleaning the Census Dataset<a class="anchor" aria-label="anchor" href="#cleaning-the-census-dataset"></a>
+</h2>
+<hr class="half-width">
+<p>After downloading ACS data via the Census API (see the previous
+lesson), the raw DataFrame needs several cleaning steps before it is
+ready for analysis or visualization. This section walks through each
+step using the file you saved in Part 1.</p>
+<div class="section level3">
+<h3 id="what-we-are-working-with">What We Are Working With ?<a class="anchor" aria-label="anchor" href="#what-we-are-working-with"></a>
+</h3>
+<p>Jump to <strong>Part 3</strong> of the notebook. The data was
+downloaded as a CSV from the Census API and loaded into a pandas
+DataFrame. At this stage it has some rough edges:</p>
+<ul>
+<li>Every column is stored as a <strong>string</strong> — even numeric
+estimates like population counts</li>
+<li>Missing or suppressed values such as <code>NaN</code>
+</li>
+<li>Column names are raw variable codes like <code>DP04_0058E</code>,
+which are hard to read (optional)</li>
+<li>The dataset may have rows that should be excluded from analysis</li>
+</ul>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div id="prerequisites--completion-of-part-1-and-2-of-the-notebook." class="callout-inner">
+<h3 class="callout-title">
+<strong>Prerequisites</strong>- Completion of
+Part 1 and 2 of the Notebook.</h3>
+<div class="callout-content">
+<p>Work through the interactive Python notebook Part <code>3</code> and
+<code>4</code> linked below, which covers everything on this page
+hands-on inside Google Colab. More explanation on the process of data
+cleaning explained below!</p>
+<p>The hands-on work for this section:</p>
+<ul>
+<li>
+<strong>Part 3: Data Cleaning</strong> - null value removal,
+shapefile join, county ranking, summary statistics</li>
+<li>
+<strong>Part 4: Visual Maps</strong> - Bar charts, histogram,
+choropleth maps, and result interpretation</li>
+</ul>
+<div class="section level3">
+<h3 id="open-the-notebook-in-google-colab-">
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/CensusDATA_Introduction.ipynb" target="_blank" class="external-link">Open
+the Notebook in Google Colab.</a><a class="anchor" aria-label="anchor" href="#open-the-notebook-in-google-colab-"></a>
+</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-1-cast-estimate-columns-to-numbers">Step 1 — Cast Estimate Columns to Numbers<a class="anchor" aria-label="anchor" href="#step-1-cast-estimate-columns-to-numbers"></a>
+</h3>
+<p>The Census API returns all values as strings. Before doing any math,
+convert estimate columns (those ending in <code>E</code>) to
+numeric:</p>
+<div class="codewrapper sourceCode" id="cb1">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a> </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>estimate_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df.columns <span class="cf">if</span> c.endswith(<span class="st">"E"</span>) <span class="kw">and</span> c <span class="kw">not</span> <span class="kw">in</span> (<span class="st">"NAME"</span>, <span class="st">"GEO_ID"</span>, <span class="st">"GEOID"</span>)] <span class="co"># excluding these columns</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a> </span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a><span class="cf">for</span> col <span class="kw">in</span> estimate_cols:</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>    df[col] <span class="op">=</span> pd.to_numeric(df[col], errors<span class="op">=</span><span class="st">"coerce"</span>)</span></code></pre>
+</div>
+<p><code>errors="coerce"</code> turns anything that cannot be parsed
+(e.g., <code>"N"</code> for not applicable) into <code>NaN</code>
+automatically.</p>
+</div>
+<div class="section level3">
+<h3 id="step-2-rename-columns-to-human-readable-labels">Step 2 — Rename Columns to Human-Readable Labels<a class="anchor" aria-label="anchor" href="#step-2-rename-columns-to-human-readable-labels"></a>
+</h3>
+<p>Raw ACS codes are hard to work with. Create a rename dictionary for
+the variables you downloaded:</p>
+<div class="codewrapper sourceCode" id="cb2">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>rename_map <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>    <span class="st">"DP04_0058E"</span>: <span class="st">"no_vehicle_households"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>    <span class="st">"DP03_0062E"</span>: <span class="st">"median_household_income"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>    <span class="st">"DP02_0001E"</span>: <span class="st">"total_households"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>    <span class="co"># add more as needed</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a>}</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a> </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>df.rename(columns<span class="op">=</span>rename_map, inplace<span class="op">=</span><span class="va">True</span>)</span></code></pre>
+</div>
+<div id="callout2" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Tip:</strong> Keep a separate reference dictionary that maps
+the new names back to the original ACS codes and their full
+descriptions. This makes your work reproducible and easier to
+document.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>variable_reference <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>    <span class="st">"no_vehicle_households"</span>: (<span class="st">"DP04_0058E"</span>, <span class="st">"Occupied housing units with no vehicle available"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>    <span class="st">"median_household_income"</span>: (<span class="st">"DP03_0062E"</span>, <span class="st">"Median household income in the past 12 months"</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a>}</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-3-drop-or-flag-rows-with-missing-data">Step 3 — Drop or Flag Rows with Missing Data<a class="anchor" aria-label="anchor" href="#step-3-drop-or-flag-rows-with-missing-data"></a>
+</h3>
+<p>Decide how to handle rows where your key variable is
+<code>NaN</code>:</p>
+<div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>variable <span class="op">=</span> <span class="st">"no_vehicle_households"</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a> </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a><span class="co"># Option A — drop rows missing the key variable entirely</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a>df_clean <span class="op">=</span> df.dropna(subset<span class="op">=</span>[variable]).copy()</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a> </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a><span class="co"># Option B — flag them for inspection instead of dropping</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>df[<span class="st">"data_missing"</span>] <span class="op">=</span> df[variable].isna()</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a><span class="bu">print</span>(df[<span class="st">"data_missing"</span>].value_counts())</span></code></pre>
+</div>
+<p>Use Option A when you are ready to proceed to analysis. Use Option B
+while still exploring, so you can understand <em>why</em> values are
+missing (small population suppression, boundary changes, etc.).</p>
+</div>
+<div class="section level3">
+<h3 id="step-4-sort-the-data">Step 4 — Sort the Data<a class="anchor" aria-label="anchor" href="#step-4-sort-the-data"></a>
+</h3>
+<p>Sorting makes it easy to find the highest and lowest values at a
+glance:</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="co"># Top 10 geographic units by your variable</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>df_clean.sort_values(variable, ascending<span class="op">=</span><span class="va">False</span>)[[<span class="st">"NAME"</span>, <span class="st">"GEOID"</span>, variable]].head(<span class="dv">10</span>)</span></code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a><span class="co"># Bottom 10 (useful for spotting zeros or near-zero suppressed values)</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>df_clean.sort_values(variable, ascending<span class="op">=</span><span class="va">True</span>)[[<span class="st">"NAME"</span>, <span class="st">"GEOID"</span>, variable]].head(<span class="dv">10</span>)</span></code></pre>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-5-summary-statistics">Step 5 — Summary Statistics<a class="anchor" aria-label="anchor" href="#step-5-summary-statistics"></a>
+</h3>
+<div class="section level4">
+<h4 id="single-variable-summary">Single-variable summary<a class="anchor" aria-label="anchor" href="#single-variable-summary"></a>
+</h4>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a><span class="bu">print</span>(df_clean[variable].describe().<span class="bu">round</span>(<span class="dv">1</span>))</span></code></pre>
+</div>
+<p>This gives you count, mean, standard deviation, min, quartiles, and
+max — a fast sanity check before plotting.</p>
+</div>
+<div class="section level4">
+<h4 id="grouped-by-county">Grouped by county<a class="anchor" aria-label="anchor" href="#grouped-by-county"></a>
+</h4>
+<p>The first 5 characters of a tract-level <code>GEOID</code> are the
+state+county FIPS code. Use this to roll up tracts to the county
+level:</p>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a>df_clean[<span class="st">"county_fips"</span>] <span class="op">=</span> df_clean[<span class="st">"GEOID"</span>].<span class="bu">str</span>[:<span class="dv">5</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a> </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a>county_summary <span class="op">=</span> (</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a>    df_clean.groupby(<span class="st">"county_fips"</span>)[variable]</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a>    .agg(total<span class="op">=</span><span class="st">"sum"</span>, average<span class="op">=</span><span class="st">"mean"</span>, median<span class="op">=</span><span class="st">"median"</span>, tract_count<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a>    .<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a>    .sort_values(<span class="st">"total"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a> </span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a><span class="bu">print</span>(<span class="st">"Top 10 counties:"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1" aria-label="code-block-8-11"></a>display(county_summary.head(<span class="dv">10</span>))</span></code></pre>
+</div>
+</div>
+<div class="section level4">
+<h4 id="grouped-by-state">Grouped by state<a class="anchor" aria-label="anchor" href="#grouped-by-state"></a>
+</h4>
+<p>If your dataset spans multiple states, compare them side by side:</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a>df_clean[<span class="st">"state_fips"</span>] <span class="op">=</span> df_clean[<span class="st">"GEOID"</span>].<span class="bu">str</span>[:<span class="dv">2</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a> </span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>state_summary <span class="op">=</span> (</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a>    df_clean.groupby(<span class="st">"state_fips"</span>)[variable]</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1" aria-label="code-block-9-5"></a>    .agg(total<span class="op">=</span><span class="st">"sum"</span>, average<span class="op">=</span><span class="st">"mean"</span>, median<span class="op">=</span><span class="st">"median"</span>, tracts<span class="op">=</span><span class="st">"count"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1" aria-label="code-block-9-6"></a>    .<span class="bu">round</span>(<span class="dv">1</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1" aria-label="code-block-9-7"></a>    .sort_values(<span class="st">"total"</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1" aria-label="code-block-9-8"></a>)</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1" aria-label="code-block-9-9"></a> </span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1" aria-label="code-block-9-10"></a>display(state_summary)</span></code></pre>
+</div>
+<div id="keypoints1" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Always cast Census columns to numeric before analysis — the API
+returns everything as strings</li>
+<li>Always check for missing data (<code>NaN</code>) to avoid
+visualization problems later on</li>
+<li>Rename cryptic variable codes to descriptive column names early in
+your workflow</li>
+<li>Use <code>groupby</code> with <code>.agg()</code> to compute
+multiple statistics at once across geographic units</li>
+</ul>
+</div>
+</div>
+</div>
+<hr>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="introduction-to-data-visualization">Introduction to Data Visualization<a class="anchor" aria-label="anchor" href="#introduction-to-data-visualization"></a>
+</h2>
+<hr class="half-width">
+<div class="section level3">
+<h3 id="what-is-data-visualization">What Is Data Visualization?<a class="anchor" aria-label="anchor" href="#what-is-data-visualization"></a>
+</h3>
+<p>Data visualization is the graphical representation of information.
+Instead of rows of numbers, it uses charts, maps, and diagrams to make
+patterns, trends, and outliers immediately understandable. For Census
+analysis specifically, visualization is what transforms a cleaned
+DataFrame into insight — showing <em>where</em> car-free households
+cluster, <em>which</em> counties are outliers, or <em>how</em> income
+varies across tracts.</p>
+<p>There are two modes you will use throughout this workshop:</p>
+<ul>
+<li>
+<strong>Exploratory visualization</strong> — quick plots for
+<em>your own</em> understanding while cleaning and analyzing</li>
+<li>
+<strong>Explanatory visualization</strong> — polished charts and
+maps you share with others to communicate findings</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="why-visualization-matters-for-census-data">Why Visualization Matters for Census Data ?<a class="anchor" aria-label="anchor" href="#why-visualization-matters-for-census-data"></a>
+</h3>
+<p>Census datasets can have thousands of rows and dozens of columns. A
+1,000-tract DataFrame is impossible to read directly. Visualization
+addresses this in a few key ways:</p>
+<ul>
+<li>A <strong>choropleth map</strong> shows the spatial distribution of
+an entire state’s worth of tract-level data at once</li>
+<li>A <strong>histogram</strong> reveals whether values are evenly
+spread or heavily skewed toward a few areas</li>
+<li>A <strong>bar chart</strong> of top counties immediately answers
+“where is the problem concentrated?”</li>
+<li>
+<strong>Scatter plots</strong> uncover correlations between two
+variables (e.g., income vs. vehicle access) that summary statistics
+alone can miss</li>
+</ul>
+</div>
+<div class="section level3">
+<h3 id="advantages-and-risks">Advantages and Risks<a class="anchor" aria-label="anchor" href="#advantages-and-risks"></a>
+</h3>
+<p>Visualization is powerful, but it can mislead as easily as it
+informs. Keep both sides in mind:</p>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Spot trends in seconds</li>
+<li>Reduce cognitive load</li>
+<li>Reveal outliers and clusters</li>
+<li>Communicate across technical skill levels</li>
+<li>Support storytelling with data</li>
+</ul>
+<p><strong>Stuff to Avoid:</strong></p>
+<ul>
+<li>
+<strong>Truncated axes</strong> — starting a bar chart’s y-axis at
+500 instead of 0 can make a small difference look enormous</li>
+<li>
+<strong>Chartjunk</strong> — decorative elements like 3D effects,
+excessive gridlines, and gradient fills that add visual noise without
+adding information</li>
+<li>
+<strong>Misleading color scales</strong> — a diverging color palette
+centered at the wrong value distorts spatial patterns</li>
+<li>
+<strong>Over-aggregation</strong> — rolling tract-level data all the
+way up to state averages hides local variation</li>
+</ul>
+<div id="callout3" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p><strong>Always ask:</strong> Does this visualization show the whole
+picture, or only the part that supports a predetermined conclusion?
+Transparency about scale choices, data suppression, and margins of error
+is essential when sharing Census visualizations.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="principles-of-effective-visualization">Principles of Effective Visualization<a class="anchor" aria-label="anchor" href="#principles-of-effective-visualization"></a>
+</h3>
+<div class="section level6">
+<h6 id="foundational-rules">
+<strong>Foundational Rules:</strong><a class="anchor" aria-label="anchor" href="#foundational-rules"></a>
+</h6>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Choose the right chart type</strong> — choropleth for
+spatial distribution, histogram for distribution shape, bar chart for
+ranking, scatter plot for relationships. Avoid pie charts for more than
+4–5 categories.</li>
+<li>
+<strong>Label everything</strong> — title, axis labels, units, and a
+legend. A chart with no axis labels cannot be interpreted.</li>
+<li>
+<strong>Be honest about scale</strong> — never truncate axes without
+clearly disclosing it; clip outliers only after explaining why.</li>
+<li>
+<strong>Use colorblind-friendly palettes</strong> —
+<code>viridis</code>, <code>YlOrRd</code>, and ColorBrewer palettes are
+designed to be perceptually uniform and accessible. Avoid raw red/green
+combinations.</li>
+<li>
+<strong>Remove what is not data</strong> — maximize the ratio of
+information to ink. Every element should earn its place.</li>
+<li>
+<strong>Add accessibility</strong> — include alt text for published
+figures; use patterns in addition to color where possible.</li>
+</ol>
+<div id="challenge1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<span class="callout-header">Challenge</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>Analyze U.S. Census population data for your assigned state and
+create a choropleth map to visualize population patterns across census
+tracts. Then, determine the average tract population and produce a
+second map that highlights which tracts fall above and below this
+average</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>See the Solution to this Problem
+<a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question2_AnswerKey.ipynb" target="_blank" class="external-link">Here.</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="discussion2" class="callout discussion">
+<div class="callout-square">
+<i class="callout-icon" data-feather="message-circle"></i>
+</div>
+<span class="callout-header">Discussion</span>
+<div class="callout-inner">
+<h3 class="callout-title">Challenge</h3>
+<div class="callout-content">
+<p>In Part 4 of the Notebook. Complete the following:</p>
+<ol style="list-style-type: decimal">
+<li>Run the basic choropleth (Section 4.2) using the default
+<code>viridis</code> colormap</li>
+<li>Switch the colormap in Section 4.3 to <code>Blues</code> and observe
+how the interpretation changes</li>
+<li>In the bar chart (Section 4.4), change <code>head(15)</code> to
+<code>head(10)</code> and add county names instead of FIPS codes by
+joining with a county name lookup</li>
+<li>In the histogram (Section 4.5), describe in one sentence what the
+shape of the distribution tells you about how your variable is
+distributed across tracts</li>
+</ol>
+<p>Alternatively, refer to the <strong>Bad and Good Plotting</strong>
+examples in the jupyter module <a href="https://spatialturn.github.io/DataVisualization/introduction.html" class="external-link">here</a>
+for a comparison of what effective and ineffective Census visualizations
+look like in practice.</p>
+</div>
+</div>
+</div>
+<div id="callout4" class="callout">
+<div class="callout-square">
+<i class="callout-icon" data-feather="bell"></i>
+</div>
+<span class="callout-header">Callout</span>
+<div class="callout-inner">
+<div class="callout-content">
+<p>For non-Python workflows, <strong>QGIS</strong> is a strong
+alternative for Census data as it can accept the shapefiles and CSVs you
+produce here. Check QGIS module <a href="https://spatialturn.github.io/DataVisualization/" class="external-link">Here</a>.</p>
+</div>
+</div>
+</div>
+<div id="keypoints2" class="callout keypoints">
+<div class="callout-square">
+<i class="callout-icon" data-feather="key"></i>
+</div>
+<span class="callout-header">Key Points</span>
+<div class="callout-inner">
+<div class="callout-content">
+<ul>
+<li>Exploratory plots help you understand your data; explanatory plots
+help others understand your findings</li>
+<li>Choropleth maps, histograms, and bar charts each answer a different
+question about Census data</li>
+<li>Color scale choices, axis ranges, and aggregation level all affect
+how a visualization is interpreted</li>
+<li>Use colorblind-friendly palettes and always label axes, titles, and
+legends</li>
+<li>Transparency about data suppression and margins of error is an
+ethical requirement when publishing Census visualizations</li>
 </ul>
 </div>
 </div>

@@ -69,7 +69,7 @@ contact: 'team@carpentries.org' # FIXME
 episodes: 
 - prelunch.md
 - midlunch.md
-#- postlunch.md
+- postlunch.md
 
 # Information for Learners
 learners: 
