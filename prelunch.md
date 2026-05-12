@@ -235,9 +235,9 @@ GeoPandas extends pandas to support **spatial (geographic) data**. It lets you l
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
-world = gpd.read_file(".../naturalearth_lowres")
+world = gpd.read_file(".../naturalearth_lowres.zip")
 world.plot(figsize=(12, 6))
-plt.title("World Population")
+plt.title("World Map")
 plt.show()
 ```
 
