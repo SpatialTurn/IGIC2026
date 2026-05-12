@@ -235,6 +235,8 @@ https://api.census.gov/data/2023/acs/acs5/profile?get=NAME&for=tract:*&in=state:
 ---
  
 ### Example: Final API Call
+
+**Note:** Make sure to add the API key within the link. 
  
 ```
 https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,GEO_ID,DP04_0058E&for=tract:*&in=state:18&in=county:*&descriptive=true&outputFormat=csv&key=""
