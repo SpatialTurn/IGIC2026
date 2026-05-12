@@ -607,7 +607,7 @@ using a map where the population is represented by symbol size.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>See the Solution to this Problem
 <a href="https://colab.research.google.com/github/SpatialTurn/IGIC2026/blob/main/episodes/Question1_AnswerKey.ipynb" target="_blank" class="external-link">Here.</a></p>
@@ -1175,7 +1175,7 @@ Data from the Census API</a></p>
 <div class="section level3">
 <h3 id="example-final-api-call">Example: Final API Call<a class="anchor" aria-label="anchor" href="#example-final-api-call"></a>
 </h3>
-<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,GEO_ID,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv</code></pre>
+<pre><code>https://api.census.gov/data/2023/acs/acs5/profile?get=NAME,GEO_ID,DP04_0058E&amp;for=tract:*&amp;in=state:18&amp;in=county:*&amp;descriptive=true&amp;outputFormat=csv&amp;key=""</code></pre>
 <div class="section level5">
 <h5 id="this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-">This returns the number of occupied households <strong>without a
 vehicle</strong> for every census tract in Indiana.<a class="anchor" aria-label="anchor" href="#this-returns-the-number-of-occupied-households-without-a-vehicle-for-every-census-tract-in-indiana-"></a>
