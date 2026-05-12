@@ -68,7 +68,7 @@ contact: 'team@carpentries.org' # FIXME
 # Order of episodes in your lesson
 episodes: 
 - prelunch.md
-#- midlunch.md
+- midlunch.md
 #- postlunch.md
 
 # Information for Learners
