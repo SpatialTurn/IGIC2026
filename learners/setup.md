@@ -14,13 +14,13 @@ Designed for beginners, the session emphasizes hands-on learning and guides part
 
 | Time | Session | Content | Activities |
 |------|---------|---------|------------|
-| 9:00 – 10:00 | Notebook Basics | Introduction to Jupyter Notebook and Google Colab | Open notebook, run first code cell, create markdown notes |
-| 10:00 – 11:00 | Python Libraries | Importing libraries (GeoPandas, pandas, matplotlib, NumPy) | Use libraries, create variables, load sample data, short exercise on data exploration |
-| 11:00 – 12:00 | Introduction to Census Data | American Community Survey (ACS) vs. Decennial Census | — |
-| 12:00 – 1:00 | *Lunch Break* | — | — |
-| 1:00 – 2:00 | Accessing Census Data | Download data or access via the Census API | Retrieve data, convert to DataFrame, explore dataset structure, variables, tables, columns, and geographic units |
-| 2:00 – 3:00 | Data Cleaning & Analysis | Cleaning data, renaming fields, sorting, summary statistics | Clean dataset, identify top counties, basic analysis |
-| 3:00 – 4:00 | Visualization | Creating charts and maps of population trends | Maps and charts of population distribution, interpreting results |
+| 8:30 – 10:30 | *Breakfast Introductions* | — | — |
+| 10:30 – 12:30 | Notebook Basics | Introduction to Jupyter Notebook and Google Colab | Open notebook, run first code cell, create markdown notes. Use libraries, create variables, load sample data, include short exercise on how to play with data |
+| 12:30 – 1:15 | *Lunch Break* | — | — |
+| 1:15 – 2:45 | Python Libraries | Data Cleaning, ACS vs. Decennial Census; Modes of accessing data | Retrieve data, convert to DataFrame, Explore dataset structure, variables, tables, columns, and geographical units |
+| 2:45 – 3:00 | *Coffee Break* | — | — |
+| 3:00 – 4:30 | Analyzing Census Data | Creating charts /maps of populations trends | Maps/Charts of population distribution, interpreting results |
+| 4:30 – 5:00 | *Group Discussion* |  — | — |
 
 ---
 
