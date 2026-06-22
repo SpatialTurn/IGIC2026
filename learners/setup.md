@@ -4,9 +4,6 @@ title: "Setup"
 
 ## Workshop Overview
 
-**Enabling the Geospatial Turn through Cyberinfrastructure Training**  
-🌐 <https://spatialturn.github.io/IGIC2026/>
-
 This workshop introduces Jupyter Notebook as a platform for data analysis using U.S. Census data as a practical case study. Participants will learn how to access, clean, analyze, and visualize data while understanding key Census concepts such as variables and geographic units.
 
 Designed for beginners, the session emphasizes hands-on learning and guides participants through a complete workflow — from data acquisition to interpretation. **Basic Python experience is required.**
