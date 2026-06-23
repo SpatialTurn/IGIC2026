@@ -283,14 +283,8 @@ In Part 4 of the Notebook. Complete the following:
 3. In the bar chart (Section 4.4), change `head(15)` to `head(10)` and add county names instead of FIPS codes by joining with a county name lookup
 4. In the histogram (Section 4.5), describe in one sentence what the shape of the distribution tells you about how your variable is distributed across tracts
 
-Alternatively, refer to the **Bad and Good Plotting** examples in the jupyter module [here](https://spatialturn.github.io/DataVisualization/introduction.html) for a comparison of what effective and ineffective Census visualizations look like in practice.
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-::::::::::::::::::::::::::::::::::::: callout
- 
-For non-Python workflows, **QGIS** is a strong alternative for Census data as it can accept the shapefiles and CSVs you produce here. Check QGIS module [Here](https://spatialturn.github.io/DataVisualization/).
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints
  
